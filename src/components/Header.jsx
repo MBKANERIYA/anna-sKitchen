@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaChevronDown, FaPhone } from 'react-icons/fa';
+import productsData from '../data/productsData';
 
-const productCategories = [
-    { name: 'Bakery Products', slug: 'bakery-products' },
-    { name: 'Refrigeration', slug: 'refrigeration' },
-    { name: 'Heating Range', slug: 'heating-range' },
-    { name: 'Chat & Fast Food Counter', slug: 'chat-and-fast-food-counter' },
-    { name: 'Work & Profession Table', slug: 'work-and-profession-table' },
-    { name: 'Rack Trolley', slug: 'rack-trolley' },
-    { name: 'Processing', slug: 'processing' },
-];
+const productCategories = Object.entries(productsData).map(([slug, data]) => ({
+    name: data.title,
+    slug: slug,
+}));
 
 const navLinks = [
     { name: 'Home', href: '/' },

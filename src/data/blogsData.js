@@ -1,4 +1,4 @@
-const blogsData = [
+const defaultBlogsData = [
     {
         slug: 'finding-best-commercial-kitchen-equipment',
         title: 'Navigating the Market: Finding the Best Commercial Kitchen Equipment Near Me',
@@ -104,5 +104,12 @@ const blogsData = [
         ],
     },
 ];
+
+const saved = localStorage.getItem('blogsData');
+const blogsData = saved ? JSON.parse(saved) : defaultBlogsData;
+
+export const saveBlogsData = () => {
+    localStorage.setItem('blogsData', JSON.stringify(blogsData));
+};
 
 export default blogsData;

@@ -1,50 +1,21 @@
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
+import productsData from '../data/productsData';
 
-const equipment = [
-    {
-        name: 'Bakery Products',
-        slug: 'bakery-products',
-        image: '/images/b-0.png',
-        description: 'Display counters, bread ovens, mixers & more.',
-    },
-    {
-        name: 'Refrigeration',
-        slug: 'refrigeration',
-        image: '/images/r-1.png',
-        description: 'Walk-in coolers, deep freezers & display coolers.',
-    },
-    {
-        name: 'Heating Range',
-        slug: 'heating-range',
-        image: '/images/h1.png',
-        description: 'Gas ranges, tandoors, griddles & grills.',
-    },
-    {
-        name: 'Chat & Fast Food Counter',
-        slug: 'chat-and-fast-food-counter',
-        image: '/images/c1.png',
-        description: 'Pav bhaji, pani puri & chat counter setups.',
-    },
-    {
-        name: 'Work & Profession Table',
-        slug: 'work-and-profession-table',
-        image: '/images/w1.png',
-        description: 'Work tables, sinks, service tables & counters.',
-    },
-    {
-        name: 'Rack Trolley',
-        slug: 'rack-trolley',
-        image: '/images/t1.png',
-        description: 'Storage racks, trolleys & dining tables.',
-    },
-    {
-        name: 'Processing',
-        slug: 'processing',
-        image: '/images/p1.png',
-        description: 'Blenders, ovens, grinders & steamers.',
-    },
-];
+const getCategoryCoverImage = (categoryData, slug) => {
+    // Return first product's image if available, else a fallback or specific default
+    if (categoryData.products && categoryData.products.length > 0) {
+        return categoryData.products[0].image;
+    }
+    return '/images/logo.png'; // fallback image
+};
+
+const equipment = Object.entries(productsData).map(([slug, data]) => ({
+    name: data.title,
+    slug: slug,
+    image: getCategoryCoverImage(data, slug),
+    description: data.description || 'Explore our full range of products in this category.',
+}));
 
 const EquipmentRange = () => {
     return (

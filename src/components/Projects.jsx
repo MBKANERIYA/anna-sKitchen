@@ -2,24 +2,24 @@ import { FaArrowRight } from 'react-icons/fa';
 
 const projects = [
     {
-        name: 'Batohi Dhaba',
-        category: 'Restaurant',
-        image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80',
+        name: 'Haldiram',
+        category: 'snack and restaurant',
+        image: '/images/haldiram.webp',
     },
     {
-        name: 'Ramada Hotel',
-        category: 'Hotel Chain',
-        image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80',
+        name: 'Subway',
+        category: 'restaurants',
+        image: '/images/subway.webp',
     },
     {
-        name: 'Radisson Blu',
-        category: 'Luxury Hotel',
-        image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80',
+        name: 'Amul',
+        category: 'Dairy',
+        image: '/images/amul.jpg',
     },
     {
-        name: 'Govt. Organisation',
-        category: 'Institutional',
-        image: 'https://images.unsplash.com/photo-1577412647305-991150c7d163?w=600&q=80',
+        name: 'Palsana',
+        category: 'restaurant',
+        image: '/images/palsana.jpg',
     },
 ];
 
@@ -48,7 +48,7 @@ const Projects = () => {
                                 <img
                                     src={project.image}
                                     alt={project.name}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    className="w-full h-full object-cover  group-hover:scale-110 transition-transform duration-700"
                                 />
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />

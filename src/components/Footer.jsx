@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaArrowUp } from 'react-icons/fa';
+import productsData from '../data/productsData';
 
 const quickLinks = [
     { name: 'Home', href: '/' },
@@ -10,15 +11,10 @@ const quickLinks = [
     { name: 'Contact', href: '/contact' },
 ];
 
-const productCategories = [
-    { name: 'Bakery Products', href: '/collections/bakery-products' },
-    { name: 'Refrigeration', href: '/collections/refrigeration' },
-    { name: 'Heating Range', href: '/collections/heating-range' },
-    { name: 'Chat & Fast Food Counter', href: '/collections/chat-and-fast-food-counter' },
-    { name: 'Work & Profession Table', href: '/collections/work-and-profession-table' },
-    { name: 'Rack Trolley', href: '/collections/rack-trolley' },
-    { name: 'Processing', href: '/collections/processing' },
-];
+const productCategories = Object.entries(productsData).map(([slug, data]) => ({
+    name: data.title,
+    href: `/collections/${slug}`,
+}));
 
 const Footer = () => {
     const scrollToTop = () => {

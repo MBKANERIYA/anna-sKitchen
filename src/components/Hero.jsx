@@ -11,13 +11,13 @@ const slides = [
         title: 'End-to-End Kitchen Solutions',
         subtitle: 'Design • Manufacturing • Installation',
         description: 'From conceptual design to installation, we manage every step with precision and excellence.',
-        gradient: 'from-dark/90 via-dark/70 to-transparent',
+        gradient: 'from-secondary/90 via-secondary/70 to-transparent',
     },
     {
         title: '25+ Years of Excellence',
         subtitle: 'Trusted by India\'s Top Brands',
         description: 'Ramada, Radisson, Taj, Bikanerwala — trusted by India\'s premier hospitality brands.',
-        gradient: 'from-primary/80 via-primary/60 to-transparent',
+        gradient: 'from-secondary/90 via-secondary/70 to-transparent',
     },
 ];
 

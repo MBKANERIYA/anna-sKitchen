@@ -1,6 +1,6 @@
 // All product categories and their items for Anna Kitchen Equipments
 
-const productsData = {
+const defaultProductsData = {
     'bakery-products': {
         title: 'BAKERY PRODUCTS',
         slug: 'bakery-products',
@@ -145,6 +145,13 @@ const productsData = {
             { name: 'Fastfood Counter', image: '/images/p21.png' },
         ],
     },
+};
+
+const saved = localStorage.getItem('productsData');
+const productsData = saved ? JSON.parse(saved) : defaultProductsData;
+
+export const saveProductsData = () => {
+    localStorage.setItem('productsData', JSON.stringify(productsData));
 };
 
 export default productsData;
