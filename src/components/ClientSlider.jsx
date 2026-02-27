@@ -57,7 +57,7 @@ const ClientSlider = () => {
     const allLogos = [...clientLogos, ...clientLogos];
 
     return (
-        <section className="bg-gold-lighter py-10">
+        <section className="bg-gold-lighter py-6 md:py-8">
             <div className="max-w-7xl mx-auto px-4">
                 <h2 className="text-center text-sm font-semibold text-secondary mb-8 tracking-wide uppercase">
                     Our Clients

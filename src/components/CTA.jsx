@@ -3,7 +3,7 @@ import { FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaArrowRight } from 
 const socials = [
     { icon: FaFacebookF, name: 'Follow On Facebook', href: '#' },
     { icon: FaLinkedinIn, name: 'Join On Linkedin', href: '#' },
-    { icon: FaInstagram, name: 'Follow On Instagram', href: '#' },
+    { icon: FaInstagram, name: 'Follow On Instagram', href: 'https://www.instagram.com/annas_kitchen_equipments' },
     { icon: FaYoutube, name: 'Follow On Youtube', href: '#' },
 ];
 
@@ -11,7 +11,7 @@ const CTA = () => {
     return (
         <section id="contact" className="relative overflow-hidden">
             {/* Follow Us Section */}
-            <div className="bg-gradient-to-b from-white to-green-50/50 py-16 md:py-20 px-4">
+            <div className="bg-gradient-to-b from-white to-green-50/50 py-10 md:py-12 px-4">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-10">
                         <span className="text-primary text-sm font-bold uppercase tracking-widest">Follow Us</span>
@@ -43,7 +43,7 @@ const CTA = () => {
             </div>
 
             {/* Let's Work Together Section */}
-            <div className="bg-gradient-to-b from-green-50/50 to-green-100/30 py-16 md:py-24 px-4 text-center">
+            <div className="bg-gradient-to-b from-green-50/50 to-green-100/30 py-10 md:py-16 px-4 text-center">
                 <span className="text-secondary/60 text-sm font-bold uppercase tracking-[0.3em]">LET'S DISCUSS</span>
                 <div className="relative max-w-5xl mx-auto mt-6">
                     <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-secondary leading-[0.9] tracking-tight font-heading uppercase">
@@ -51,7 +51,7 @@ const CTA = () => {
                     </h2>
                     <div className="flex items-center justify-center my-2 md:my-4">
                         <a
-                            href="tel:+919161171118"
+                            href="tel:+919106780688"
                             className="inline-flex flex-col items-center justify-center w-24 h-24 md:w-32 md:h-32 rounded-full bg-accent text-secondary font-bold text-sm md:text-base hover:scale-110 hover:shadow-2xl hover:shadow-accent/30 transition-all duration-300 z-10"
                         >
                             <FaArrowRight className="text-lg md:text-xl -rotate-45 mb-1" />

@@ -51,7 +51,7 @@ const PartnerSlider = () => {
     const allPartners = [...partnerLogos, ...partnerLogos];
 
     return (
-        <section className="bg-gold-light py-10">
+        <section className="bg-gold-light py-6 md:py-8">
             <div className="max-w-7xl mx-auto px-4">
                 <h2 className="text-center text-sm font-semibold text-secondary mb-8 tracking-wide uppercase">
                     Business Partners

@@ -21,7 +21,7 @@ const blogsData = [
             },
             {
                 heading: 'Anna Kitchen Equipments - Your Local Partner',
-                text: 'Based in Lucknow, Anna Kitchen Equipments has been serving the hospitality industry for over 25 years. We manufacture a comprehensive range of commercial kitchen equipment including cooking ranges, refrigeration units, bakery equipment, food preparation tools, display counters, and much more. Our commitment to quality and customer satisfaction has made us a trusted name in the industry.',
+                text: 'Based in Surat, Anna Kitchen Equipments has been serving the hospitality industry for over 25 years. We manufacture a comprehensive range of commercial kitchen equipment including cooking ranges, refrigeration units, bakery equipment, food preparation tools, display counters, and much more. Our commitment to quality and customer satisfaction has made us a trusted name in the industry.',
             },
         ],
     },
@@ -79,15 +79,15 @@ const blogsData = [
     },
     {
         slug: 'top-commercial-kitchen-solutions-lucknow',
-        title: 'Transforming Culinary Spaces: Top Commercial Kitchen Solutions in Lucknow',
+        title: 'Transforming Culinary Spaces: Top Commercial Kitchen Solutions in Surat',
         image: '/blog/professional-stainless-steel-kitchen-design-photo-was-made-restouraunt_613910-12332.avif',
         date: 'Apr 05, 2025',
         category: 'Solutions',
         author: 'Anna Kitchen Team',
         content: [
             {
-                heading: 'Lucknow Growing Hospitality Industry',
-                text: 'Lucknow has emerged as a thriving hub for the hospitality industry, with a rapid increase in restaurants, hotels, banquet halls, and cloud kitchens. This growth has created a strong demand for reliable, high-quality commercial kitchen solutions that can keep up with the city evolving culinary landscape.',
+                heading: 'Surat Growing Hospitality Industry',
+                text: 'Surat has emerged as a thriving hub for the hospitality industry, with a rapid increase in restaurants, hotels, banquet halls, and cloud kitchens. This growth has created a strong demand for reliable, high-quality commercial kitchen solutions that can keep up with the city evolving culinary landscape.',
             },
             {
                 heading: 'End-to-End Kitchen Solutions',
@@ -99,7 +99,7 @@ const blogsData = [
             },
             {
                 heading: 'Why Choose Anna Kitchen Equipments',
-                text: 'With over 25 years of experience and 100+ successful projects across 16+ states, Anna Kitchen Equipments is the most trusted commercial kitchen solution provider in Lucknow. We combine world-class manufacturing with local expertise to deliver kitchens that exceed expectations. Our clients include Ramada, Radisson, Taj, and many more prestigious brands.',
+                text: 'With over 25 years of experience and 100+ successful projects across 16+ states, Anna Kitchen Equipments is the most trusted commercial kitchen solution provider in Surat. We combine world-class manufacturing with local expertise to deliver kitchens that exceed expectations. Our clients include Ramada, Radisson, Taj, and many more prestigious brands.',
             },
         ],
     },

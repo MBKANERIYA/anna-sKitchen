@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const slides = [
     {
         title: 'Commercial Kitchen Equipment',
-        subtitle: 'Manufacturer in Lucknow',
+        subtitle: 'Manufacturer in Surat',
         description: 'Premium quality commercial kitchen setups for hotels, restaurants, cafes, bakeries, and cloud kitchens.',
         gradient: 'from-secondary/90 via-secondary/70 to-transparent',
     },

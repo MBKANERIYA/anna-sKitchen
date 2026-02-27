@@ -1,19 +1,23 @@
+import { Link } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaArrowUp } from 'react-icons/fa';
 
 const quickLinks = [
-    'Home', 'About Us', 'Services', 'Projects', 'Videos',
-    'Photo Gallery', 'Our Team', 'Blog', 'FAQs', 'Contact',
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about' },
+    { name: 'Services', href: '/services' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Blog', href: '/blogs' },
+    { name: 'Contact', href: '/contact' },
 ];
 
-const productsCol1 = [
-    'Cooking Range', 'Refrigeration Equipment', 'Imported Equipment',
-    'Food Preparation', 'Display Counter', 'Bar Equipment',
-    'Bakery Equipment', 'Storage Table & Rack',
-];
-
-const productsCol2 = [
-    'Dish Washing Equipment', 'Canteen Equipment', 'Chapati Making Machine',
-    'Service Section', 'Pantry Equipment', 'Catering Equipment',
+const productCategories = [
+    { name: 'Bakery Products', href: '/collections/bakery-products' },
+    { name: 'Refrigeration', href: '/collections/refrigeration' },
+    { name: 'Heating Range', href: '/collections/heating-range' },
+    { name: 'Chat & Fast Food Counter', href: '/collections/chat-and-fast-food-counter' },
+    { name: 'Work & Profession Table', href: '/collections/work-and-profession-table' },
+    { name: 'Rack Trolley', href: '/collections/rack-trolley' },
+    { name: 'Processing', href: '/collections/processing' },
 ];
 
 const Footer = () => {
@@ -24,7 +28,7 @@ const Footer = () => {
     return (
         <footer className="bg-secondary text-white">
             {/* Main footer */}
-            <div className="max-w-7xl mx-auto px-4 py-16">
+            <div className="max-w-7xl mx-auto px-4 py-10 md:py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                     {/* Company Info */}
                     <div>
@@ -38,20 +42,20 @@ const Footer = () => {
                             </div>
                         </div>
                         <p className="text-white/60 text-sm leading-relaxed mb-6">
-                            Anna Kitchen Equipments — a leading Commercial Kitchen Equipment Manufacturer Company in Lucknow with Commercial Kitchen Planning & Setup for hotel, restaurant, cafe, food court etc.
+                            Anna Kitchen Equipments — a leading Commercial Kitchen Equipment Manufacturer Company in Surat with Commercial Kitchen Planning & Setup for hotel, restaurant, cafe, food court etc.
                         </p>
                         <div className="space-y-3">
-                            <a href="tel:+919161171118" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
+                            <a href="tel:+919106780688" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
                                 <FaPhone className="text-accent text-xs" />
-                                +91-9161171118, +91-8419005353
+                                +91-91067 80688
                             </a>
-                            <a href="mailto:info@annakitchen.in" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
+                            <a href="mailto:annaskitchenequipment@gmail.com" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
                                 <FaEnvelope className="text-accent text-xs" />
-                                info@annakitchen.in
+                                annaskitchenequipment@gmail.com
                             </a>
                             <div className="flex items-start gap-3 text-white/60 text-sm">
                                 <FaMapMarkerAlt className="text-accent text-xs mt-1 flex-shrink-0" />
-                                <span>B-36, Officers Colony, Nirala Nagar, Lucknow, Uttar Pradesh 226020</span>
+                                <span>Near Nayara Petrol Pump, Bhatha, Surat, Gujarat 394510</span>
                             </div>
                         </div>
                     </div>
@@ -64,62 +68,53 @@ const Footer = () => {
                         </h3>
                         <ul className="space-y-2.5 mt-4">
                             {quickLinks.map((link) => (
-                                <li key={link}>
-                                    <a href="#" className="text-white/60 text-sm hover:text-accent hover:pl-2 transition-all duration-300">
-                                        {link}
-                                    </a>
+                                <li key={link.name}>
+                                    <Link to={link.href} className="text-white/60 text-sm hover:text-accent hover:pl-2 transition-all duration-300">
+                                        {link.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* Products Col 1 */}
+                    {/* Our Products */}
                     <div>
                         <h3 className="text-lg font-bold mb-6 font-heading relative">
                             Our Products
                             <span className="absolute bottom-0 left-0 w-10 h-0.5 bg-accent -mb-2 rounded-full" />
                         </h3>
                         <ul className="space-y-2.5 mt-4">
-                            {productsCol1.map((product) => (
-                                <li key={product}>
-                                    <a href="#" className="text-white/60 text-sm hover:text-accent hover:pl-2 transition-all duration-300">
-                                        {product}
-                                    </a>
+                            {productCategories.map((product) => (
+                                <li key={product.name}>
+                                    <Link to={product.href} className="text-white/60 text-sm hover:text-accent hover:pl-2 transition-all duration-300">
+                                        {product.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* Products Col 2 */}
+                    {/* Social Links */}
                     <div>
                         <h3 className="text-lg font-bold mb-6 font-heading relative">
-                            More Products
+                            Connect With Us
                             <span className="absolute bottom-0 left-0 w-10 h-0.5 bg-accent -mb-2 rounded-full" />
                         </h3>
-                        <ul className="space-y-2.5 mt-4">
-                            {productsCol2.map((product) => (
-                                <li key={product}>
-                                    <a href="#" className="text-white/60 text-sm hover:text-accent hover:pl-2 transition-all duration-300">
-                                        {product}
-                                    </a>
-                                </li>
+                        <p className="text-white/60 text-sm leading-relaxed mb-6">
+                            Follow us on social media for updates, culinary insights, and new product announcements.
+                        </p>
+                        <div className="flex gap-2">
+                            {[FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn].map((Icon, i) => (
+                                <a
+                                    key={i}
+                                    href={i === 1 ? 'https://www.instagram.com/annas_kitchen_equipments' : '#'}
+                                    target={i === 1 ? '_blank' : undefined}
+                                    rel={i === 1 ? 'noopener noreferrer' : undefined}
+                                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-secondary hover:scale-110 transition-all duration-300"
+                                >
+                                    <Icon className="text-sm" />
+                                </a>
                             ))}
-                        </ul>
-
-                        {/* Social Links */}
-                        <div className="mt-8">
-                            <p className="text-sm font-semibold mb-3">Follow Us</p>
-                            <div className="flex gap-2">
-                                {[FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn].map((Icon, i) => (
-                                    <a
-                                        key={i}
-                                        href="#"
-                                        className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-secondary transition-all duration-300"
-                                    >
-                                        <Icon className="text-sm" />
-                                    </a>
-                                ))}
-                            </div>
                         </div>
                     </div>
                 </div>

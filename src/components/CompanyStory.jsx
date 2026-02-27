@@ -33,13 +33,13 @@ const CompanyStory = () => {
                         </h2>
                         <div className="space-y-4 text-gray-600 leading-relaxed">
                             <p>
-                                We are one of the leading brands specializing in the manufacturing, service, and installation of commercial kitchen setups in Lucknow.
+                                We are one of the leading brands specializing in the manufacturing, service, and installation of commercial kitchen setups in Surat.
                             </p>
                             <p>
-                                With a legacy spanning over <span className="text-primary font-semibold">25 years</span> in the Indian hospitality industry, the Anna Kitchen family has been synonymous with quality, innovation, and trust. Building on decades of expertise, Anna Kitchen Equipments was officially established in 2007 and is headquartered in Uttar Pradesh, India.
+                                With a legacy spanning over <span className="text-primary font-semibold">25 years</span> in the Indian hospitality industry, the Anna Kitchen family has been synonymous with quality, innovation, and trust. Building on decades of expertise, Anna Kitchen Equipments was officially established in 2007 and is headquartered in Gujarat, India.
                             </p>
                             <p>
-                                Today, we are proud to be one of India's foremost manufacturers and suppliers of <span className="text-primary font-semibold">commercial kitchen equipment</span>, refrigeration and bakery equipment in Lucknow.
+                                Today, we are proud to be one of India's foremost manufacturers and suppliers of <span className="text-primary font-semibold">commercial kitchen equipment</span>, refrigeration and bakery equipment in Surat.
                             </p>
                             <p>
                                 Our founding vision was simple yet ambitious: to deliver durable, high-quality kitchen setup solutions tailored to the needs of restaurants, hotels, cloud kitchens, bakeries, catering services, and institutional messes. With more than <span className="text-primary font-semibold">100 successful projects</span> completed across 16+ states in India, we've earned the trust of prestigious names including Ramada, Radisson, Taj, and Bikanerwala.

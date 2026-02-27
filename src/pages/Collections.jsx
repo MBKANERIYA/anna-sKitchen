@@ -3,83 +3,146 @@ import { FaHome, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import productsData from '../data/productsData';
 
 const categoryImages = {
-    'bakery-products': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80',
-    refrigeration: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=600&q=80',
-    'heating-range': 'https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=600&q=80',
-    'chat-and-fast-food-counter': 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=600&q=80',
-    'work-and-profession-table': 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=600&q=80',
-    'rack-trolley': 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=600&q=80',
-    processing: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80',
+    'bakery-products': '/images/b-0.png',
+    refrigeration: '/images/r-1.png',
+    'heating-range': '/images/h1.png',
+    'chat-and-fast-food-counter': '/images/c1.png',
+    'work-and-profession-table': '/images/w1.png',
+    'rack-trolley': '/images/t1.png',
+    processing: '/images/p1.png',
 };
 
 const Collections = () => {
     const categories = Object.values(productsData);
 
     return (
-        <div className="min-h-screen bg-gray-light">
-            {/* Breadcrumb */}
-            <div className="bg-secondary text-white">
-                <div className="max-w-7xl mx-auto px-4 py-4 flex items-center gap-2 text-sm">
-                    <Link to="/" className="hover:text-accent transition-colors flex items-center gap-1">
-                        <FaHome className="text-xs" /> Home
-                    </Link>
-                    <FaChevronRight className="text-xs text-white/40" />
-                    <span className="text-accent">Collections</span>
-                </div>
-            </div>
-
+        <div className="min-h-screen bg-secondary">
             {/* Hero Banner */}
-            <div className="relative bg-gradient-to-br from-secondary via-dark to-secondary py-20 overflow-hidden">
-                <div className="absolute inset-0 opacity-10" style={{
-                    backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            <div className="relative py-24 md:py-32 overflow-hidden">
+                {/* Animated gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary via-dark-light to-secondary" />
+                <div className="absolute inset-0 opacity-5" style={{
+                    backgroundImage: `radial-gradient(circle at 25% 25%, rgba(197,160,78,0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(212,175,55,0.2) 0%, transparent 50%)`,
                 }} />
+                {/* Decorative gold lines */}
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
                 <div className="relative max-w-7xl mx-auto px-4 text-center">
-                    <span className="text-accent text-sm font-bold uppercase tracking-widest">Browse Our Range</span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mt-3 font-heading">
-                        Our Product Collections
+                    {/* Breadcrumb */}
+                    <div className="flex items-center justify-center gap-2 text-sm text-white/50 mb-8">
+                        <Link to="/" className="hover:text-accent transition-colors flex items-center gap-1">
+                            <FaHome className="text-xs" /> Home
+                        </Link>
+                        <FaChevronRight className="text-xs text-white/30" />
+                        <span className="text-accent">Collections</span>
+                    </div>
+
+                    <div className="inline-block bg-accent/10 border border-accent/20 text-accent px-5 py-1.5 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-6">
+                        Browse Our Range
+                    </div>
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white font-heading tracking-tight">
+                        Our Product <span className="text-gradient">Collections</span>
                     </h1>
-                    <p className="text-white/60 mt-4 max-w-2xl mx-auto text-lg">
-                        Explore our comprehensive range of commercial kitchen equipment for every need
+                    <p className="text-white/40 mt-5 max-w-2xl mx-auto text-lg font-light">
+                        Explore our comprehensive range of premium commercial kitchen equipment
                     </p>
-                    <div className="w-20 h-1 bg-gradient-to-r from-primary to-accent mx-auto mt-6 rounded-full" />
+                    <div className="flex items-center justify-center gap-3 mt-8">
+                        <div className="w-12 h-px bg-accent/40" />
+                        <div className="w-2 h-2 rounded-full bg-accent" />
+                        <div className="w-12 h-px bg-accent/40" />
+                    </div>
                 </div>
             </div>
 
             {/* Categories Grid */}
-            <div className="max-w-7xl mx-auto px-4 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {categories.map((cat) => (
-                        <Link
-                            key={cat.slug}
-                            to={`/collections/${cat.slug}`}
-                            className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
-                        >
-                            <div className="relative aspect-[16/10] overflow-hidden">
-                                <img
-                                    src={categoryImages[cat.slug]}
-                                    alt={cat.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/20 to-transparent" />
-                                <div className="absolute bottom-4 left-5 right-5">
-                                    <h3 className="text-xl font-bold text-white font-heading uppercase tracking-wide">
-                                        {cat.title}
-                                    </h3>
-                                    <p className="text-white/60 text-xs mt-1">
-                                        {cat.products.length} Products
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="p-5">
-                                <p className="text-gray-medium text-sm line-clamp-2 mb-4">
-                                    {cat.description}
-                                </p>
-                                <span className="inline-flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
-                                    View Products <FaArrowRight className="text-xs" />
-                                </span>
-                            </div>
+            <div className="relative">
+                {/* Subtle top gradient blend */}
+                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-secondary to-transparent z-10 pointer-events-none" />
+
+                <div className="max-w-7xl mx-auto px-4 py-16 relative z-20">
+                    {/* Category count */}
+                    <div className="flex items-center justify-between mb-10">
+                        <div className="flex items-center gap-3">
+                            <div className="w-1 h-8 bg-gradient-to-b from-accent to-primary rounded-full" />
+                            <span className="text-white/60 text-sm font-medium">{categories.length} Categories Available</span>
+                        </div>
+                        <Link to="/#contact" className="text-accent text-sm font-semibold hover:text-white transition-colors flex items-center gap-2">
+                            Need Help Choosing? <FaArrowRight className="text-xs" />
                         </Link>
-                    ))}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {categories.map((cat, index) => (
+                            <Link
+                                key={cat.slug}
+                                to={`/collections/${cat.slug}`}
+                                className="group relative rounded-2xl overflow-hidden transition-all duration-700 hover:-translate-y-3"
+                            >
+                                {/* Card background */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-dark-light to-secondary rounded-2xl" />
+                                <div className="absolute inset-[1px] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] rounded-2xl" />
+
+                                {/* Gold border glow on hover */}
+                                <div className="absolute inset-0 rounded-2xl border border-white/5 group-hover:border-accent/30 transition-colors duration-700" />
+
+                                <div className="relative">
+                                    {/* Image container */}
+                                    <div className="relative overflow-hidden aspect-[4/3]">
+                                        <img
+                                            src={categoryImages[cat.slug]}
+                                            alt={cat.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                                        />
+                                        {/* Multi-layer gradient overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/40 to-transparent" />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+                                        {/* Product count badge */}
+                                        <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 text-white/80 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                            {cat.products.length} Products
+                                        </div>
+
+                                        {/* Bottom content overlay */}
+                                        <div className="absolute bottom-0 left-0 right-0 p-6">
+                                            <h3 className="font-bold text-white font-heading uppercase tracking-wide group-hover:text-accent transition-colors duration-500 text-xl">
+                                                {cat.title}
+                                            </h3>
+                                            <p className="text-white/40 text-sm mt-2 line-clamp-2 max-w-md">
+                                                {cat.description}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Bottom action bar */}
+                                    <div className="p-5 flex items-center justify-between">
+                                        <span className="inline-flex items-center gap-2 text-accent/70 text-sm font-semibold group-hover:text-accent group-hover:gap-3 transition-all duration-500">
+                                            Explore Collection <FaArrowRight className="text-xs" />
+                                        </span>
+                                        <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent/40 group-hover:bg-accent/10 transition-all duration-500">
+                                            <FaArrowRight className="text-xs text-white/30 group-hover:text-accent -rotate-45 transition-colors duration-500" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div>
+                        <h3 className="text-white text-xl font-bold font-heading">Can't find what you're looking for?</h3>
+                        <p className="text-white/40 text-sm mt-1">Contact us for custom kitchen equipment solutions</p>
+                    </div>
+                    <Link
+                        to="/#contact"
+                        className="bg-gradient-to-r from-primary to-accent text-secondary px-8 py-3.5 rounded-full font-bold text-sm hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5 transition-all duration-300"
+                    >
+                        Get Custom Quote
+                    </Link>
                 </div>
             </div>
         </div>

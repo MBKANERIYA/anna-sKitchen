@@ -52,7 +52,7 @@ const Counter = ({ end, suffix, duration = 2000 }) => {
 
 const Stats = () => {
     return (
-        <section className="relative py-20 overflow-hidden">
+        <section className="relative py-12 overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-secondary via-dark to-secondary" />
             <div className="absolute inset-0 opacity-10" style={{

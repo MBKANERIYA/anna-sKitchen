@@ -3,33 +3,29 @@ import { FaChevronDown } from 'react-icons/fa';
 
 const faqs = [
     {
-        question: 'Can Anna Kitchen Equipments help with kitchen design and layout planning?',
-        answer: 'Absolutely! Anna Kitchen Equipments offers end-to-end kitchen planning and designing services to help you create an efficient, ergonomic, and well-organized commercial kitchen setup tailored to your operational needs.',
+        question: 'Do you create custom kitchen equipment?',
+        answer: 'Yes, we custom design and sizes for hotels, restaurants, bakeries and caterers.',
     },
     {
-        question: 'Where can I find reliable commercial kitchen equipment in Lucknow?',
-        answer: 'If you are looking for reliable commercial kitchen equipment in Lucknow, Uttar Pradesh, Anna Kitchen Equipments is a trusted local manufacturer and supplier. We provide a complete range of high-quality commercial kitchen equipment for restaurants, hotels, cafes, bakeries, cloud kitchens, hospitals, and institutions.',
+        question: 'What are your materials?',
+        answer: 'Our materials are all first grade food safe stainless steel and certified components, which gives hygiene, durability and strength.',
     },
     {
-        question: 'What industries does Anna Kitchen Equipments serve?',
-        answer: 'We serve a broad range of sectors including restaurants, hotels, cloud kitchens, hospitals, educational institutions, cafeterias, catering services, and large institutional messes.',
+        question: 'Do your shipping and products only apply to Surat?',
+        answer: 'No, we ship and we can ship our equipment through the whole of India. Our packaging is reliable and protected and we are quick!',
     },
     {
-        question: 'Do you provide customized kitchen equipment?',
-        answer: 'Yes — we offer customization options based on your kitchen size, workflow needs, and specific operational requirements. Our design team works closely with clients to tailor solutions that optimize space and performance.',
+        question: 'Do you offer after sales?',
+        answer: 'Sure! We offer insure support, maintenance recommendations and dedicated support for any assistance around after sales that may be required to ensure a seamless running of the product.',
     },
     {
-        question: 'What products does Anna Kitchen Equipments offer?',
-        answer: 'We offer a wide range of commercial kitchen solutions including cooking ranges, refrigeration equipment, imported kitchen machines, food preparation tools, display counters, bakery equipment, storage racks/tables, dishwashing systems, canteen equipment, chapati-making machines, pantry equipment, and more.',
-    },
-    {
-        question: 'Are your products compliant with industry standards?',
-        answer: 'Yes, our equipment is manufactured according to high quality standards using premium stainless steel and quality fabrication processes. We follow industry norms to ensure durability, hygiene, and performance.',
+        question: 'How would I go about requesting a quote?',
+        answer: 'Simply use the contact form for a quote or feel free to contact us by phone or email in correspondence with your product requirements.',
     },
 ];
 
 const FAQ = () => {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState(0);
 
     const toggle = (index) => {
         setOpenIndex(openIndex === index ? null : index);
