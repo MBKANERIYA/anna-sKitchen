@@ -36,12 +36,13 @@ export const addProduct = async ({ categorySlug, categoryTitle, categoryDescript
         let errorMessage = 'Failed to add product';
         if (contentType && contentType.includes('application/json')) {
             const err = await res.json();
-            errorMessage = err.error || errorMessage;
+            errorMessage = err.details ? `${err.error}: ${err.details}` : (err.error || errorMessage);
         } else {
             errorMessage = await res.text() || errorMessage;
         }
         throw new Error(errorMessage);
     }
+
 
     if (contentType && contentType.includes('application/json')) {
         return await res.json();
@@ -63,12 +64,13 @@ export const deleteProduct = async (categorySlug, productIndex) => {
         let errorMessage = 'Failed to delete product';
         if (contentType && contentType.includes('application/json')) {
             const err = await res.json();
-            errorMessage = err.error || errorMessage;
+            errorMessage = err.details ? `${err.error}: ${err.details}` : (err.error || errorMessage);
         } else {
             errorMessage = await res.text() || errorMessage;
         }
         throw new Error(errorMessage);
     }
+
 
     if (contentType && contentType.includes('application/json')) {
         return await res.json();

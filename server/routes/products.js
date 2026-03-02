@@ -21,9 +21,13 @@ router.get('/', async (req, res) => {
         res.json(data);
     } catch (err) {
         console.error('Error fetching products:', err);
-        res.status(500).json({ error: 'Failed to fetch products' });
+        res.status(500).json({
+            error: 'Failed to fetch products',
+            details: err.message
+        });
     }
 });
+
 
 // POST /api/products - Add a product to a category (or create new category)
 router.post('/', async (req, res) => {
@@ -60,9 +64,13 @@ router.post('/', async (req, res) => {
         });
     } catch (err) {
         console.error('Error adding product:', err);
-        res.status(500).json({ error: 'Failed to add product' });
+        res.status(500).json({
+            error: 'Failed to add product',
+            details: err.message
+        });
     }
 });
+
 
 // DELETE /api/products/:categorySlug/:productIndex - Delete a product from a category
 router.delete('/:categorySlug/:productIndex', async (req, res) => {
@@ -86,8 +94,12 @@ router.delete('/:categorySlug/:productIndex', async (req, res) => {
         res.json({ message: `Deleted "${removedProduct.name}" from ${category.title}` });
     } catch (err) {
         console.error('Error deleting product:', err);
-        res.status(500).json({ error: 'Failed to delete product' });
+        res.status(500).json({
+            error: 'Failed to delete product',
+            details: err.message
+        });
     }
 });
+
 
 module.exports = router;
