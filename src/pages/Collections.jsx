@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaArrowRight } from 'react-icons/fa';
-import productsData from '../data/productsData';
+import { fetchProducts } from '../api/products';
 
 const categoryImages = {
     'bakery-products': '/images/b-0.png',
@@ -13,7 +14,26 @@ const categoryImages = {
 };
 
 const Collections = () => {
-    const categories = Object.values(productsData);
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchProducts().then(data => {
+            setCategories(Object.values(data));
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-secondary flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-400 text-lg">Loading collections...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-secondary">
@@ -90,7 +110,7 @@ const Collections = () => {
                                     {/* Image container */}
                                     <div className="relative overflow-hidden aspect-[4/3]">
                                         <img
-                                            src={categoryImages[cat.slug]}
+                                            src={categoryImages[cat.slug] || (cat.products[0]?.image || '/images/logo.png')}
                                             alt={cat.title}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                                         />

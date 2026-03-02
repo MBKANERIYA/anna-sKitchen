@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import productsData, { saveProductsData } from '../data/productsData';
+import { fetchProducts, addProduct, deleteProduct } from '../api/products';
 import blogsData, { saveBlogsData } from '../data/blogsData';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('manage-products');
-    const [updateTrigger, setUpdateTrigger] = useState(false);
-    const [filterCategory, setFilterCategory] = useState('bakery-products');
+    const [productsData, setProductsData] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [filterCategory, setFilterCategory] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
     // Product States
-    const [selectedCategory, setSelectedCategory] = useState(Object.keys(productsData)[0]);
+    const [selectedCategory, setSelectedCategory] = useState('');
     const [newCategoryName, setNewCategoryName] = useState('');
     const [productName, setProductName] = useState('');
     const [productImage, setProductImage] = useState('');
@@ -25,10 +26,31 @@ const AdminDashboard = () => {
 
     const [successMessage, setSuccessMessage] = useState('');
 
-    const handleAddProduct = (e) => {
+    // Fetch products from API on mount
+    useEffect(() => {
+        loadProducts();
+    }, []);
+
+    const loadProducts = async () => {
+        setLoading(true);
+        try {
+            const data = await fetchProducts();
+            setProductsData(data);
+            const keys = Object.keys(data);
+            if (keys.length > 0) {
+                if (!filterCategory || !data[filterCategory]) setFilterCategory(keys[0]);
+                if (!selectedCategory || !data[selectedCategory]) setSelectedCategory(keys[0]);
+            }
+        } catch (err) {
+            console.error('Failed to load products:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleAddProduct = async (e) => {
         e.preventDefault();
 
-        // Validation
         if (!productName || !productImage) {
             alert("Please fill in both name and image URL.");
             return;
@@ -39,53 +61,49 @@ const AdminDashboard = () => {
             return;
         }
 
-        // Create new product object
-        const newProduct = {
-            name: productName,
-            image: productImage
-        };
+        let categorySlug = selectedCategory;
+        let categoryTitle = productsData[selectedCategory]?.title;
 
-        let targetCategoryKey = selectedCategory;
-
-        // Handle completely new category creation
         if (selectedCategory === 'new-category') {
-            // Generate a slug from the name (e.g. "Ovens & Grills" -> "ovens-grills")
-            const newSlug = newCategoryName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-
-            // Initialize the new category in our mock data
-            productsData[newSlug] = {
-                title: newCategoryName,
-                slug: newSlug,
-                description: "Newly added category.",
-                products: []
-            };
-
-            targetCategoryKey = newSlug;
-
-            // Optional: immediately switch the dropdown to the newly created category
-            setSelectedCategory(newSlug);
+            categorySlug = newCategoryName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+            categoryTitle = newCategoryName;
         }
 
-        // Add the product to the target category
-        productsData[targetCategoryKey].products.push(newProduct);
-        saveProductsData();
+        try {
+            const result = await addProduct({
+                categorySlug,
+                categoryTitle,
+                categoryDescription: productsData[categorySlug]?.description || 'Newly added category.',
+                productName,
+                productImage
+            });
 
-        // Show success and reset form
-        setSuccessMessage(`Successfully added "${productName}" to ${productsData[targetCategoryKey].title}!`);
-        setProductName('');
-        setProductImage('');
-        setNewCategoryName('');
+            setSuccessMessage(result.message || `Successfully added "${productName}"!`);
+            setProductName('');
+            setProductImage('');
+            setNewCategoryName('');
 
-        // Hide success message after 3 seconds
+            // Refresh product list from database
+            await loadProducts();
+            if (selectedCategory === 'new-category') {
+                setSelectedCategory(categorySlug);
+            }
+        } catch (err) {
+            alert('Error adding product: ' + err.message);
+        }
+
         setTimeout(() => setSuccessMessage(''), 3000);
     };
 
-    const handleDeleteProduct = (categoryKey, productIndex) => {
+    const handleDeleteProduct = async (categoryKey, productIndex) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
-            productsData[categoryKey].products.splice(productIndex, 1);
-            saveProductsData();
-            setUpdateTrigger(prev => !prev);
-            setSuccessMessage("Product deleted successfully.");
+            try {
+                await deleteProduct(categoryKey, productIndex);
+                setSuccessMessage("Product deleted successfully.");
+                await loadProducts();
+            } catch (err) {
+                alert('Error deleting product: ' + err.message);
+            }
             setTimeout(() => setSuccessMessage(''), 3000);
         }
     };
@@ -116,7 +134,7 @@ const AdminDashboard = () => {
             ]
         };
 
-        blogsData.unshift(newBlog); // Add to the top of the blogs list
+        blogsData.unshift(newBlog);
         saveBlogsData();
 
         setSuccessMessage(`Successfully published blog: "${blogTitle}"!`);
@@ -128,6 +146,17 @@ const AdminDashboard = () => {
 
         setTimeout(() => setSuccessMessage(''), 3000);
     };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-secondary flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-400 text-lg">Loading products from database...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-secondary flex">
@@ -236,12 +265,10 @@ const AdminDashboard = () => {
                             {Object.entries(productsData)
                                 .filter(([categorySlug]) => categorySlug === filterCategory)
                                 .map(([categorySlug, categoryData]) => {
-                                    // Filter products within the category by search query
                                     const filteredProducts = categoryData.products.filter(product =>
                                         product.name.toLowerCase().includes(searchQuery.toLowerCase())
                                     );
 
-                                    // Hide category entirely if search query doesn't match anything in it
                                     if (searchQuery && filteredProducts.length === 0) return null;
 
                                     return (
@@ -256,7 +283,6 @@ const AdminDashboard = () => {
                                             ) : (
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                                     {filteredProducts.map((product, index) => {
-                                                        // Find original index for deletion to work correctly
                                                         const originalIndex = categoryData.products.findIndex(p => p.name === product.name);
                                                         return (
                                                             <div key={originalIndex} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden flex flex-col group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-accent/50 transition-all duration-300 relative">
@@ -510,7 +536,6 @@ const AdminDashboard = () => {
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                 onError={(e) => { e.target.src = '/images/logo.png' }}
                                             />
-                                            {/* Category Badge overlay */}
                                             {blogCategory && (
                                                 <div className="absolute top-4 right-4 z-20">
                                                     <span className="bg-accent text-secondary text-xs font-bold px-3 py-1.5 rounded-full uppercase shadow-lg">

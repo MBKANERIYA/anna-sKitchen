@@ -1,28 +1,44 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import CTA from '../components/CTA';
 import ClientSlider from '../components/ClientSlider';
 import PartnerSlider from '../components/PartnerSlider';
-import productsData from '../data/productsData';
-
-// Generate categories list for the right sidebar and top nav
-const productCategories = Object.keys(productsData).map(key => ({
-    name: productsData[key].title,
-    slug: productsData[key].slug
-}));
+import { fetchProducts } from '../api/products';
 
 const ProductDetailPage = () => {
     const { category, productName } = useParams();
+    const [productsData, setProductsData] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Find the category and specific product
-    const categoryData = productsData[category];
+    useEffect(() => {
+        fetchProducts().then(data => {
+            setProductsData(data);
+            setLoading(false);
+        });
+    }, []);
 
-    // Decode the productName from URL (handles spaces/encoded chars)
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-secondary">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-400 text-lg">Loading product...</p>
+                </div>
+            </div>
+        );
+    }
+
+    const categoryData = productsData?.[category];
     const decodedProductName = decodeURIComponent(productName);
-
     const product = categoryData?.products.find(
         p => p.name.toLowerCase() === decodedProductName.toLowerCase()
     );
+
+    const productCategories = Object.keys(productsData).map(key => ({
+        name: productsData[key].title,
+        slug: productsData[key].slug
+    }));
 
     if (!categoryData || !product) {
         return (

@@ -1,10 +1,32 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaPhone, FaArrowLeft, FaArrowRight, FaWhatsapp } from 'react-icons/fa';
-import productsData from '../data/productsData';
+import { fetchProducts } from '../api/products';
 
 const CollectionPage = () => {
     const { category } = useParams();
-    const data = productsData[category];
+    const [productsData, setProductsData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchProducts().then(data => {
+            setProductsData(data);
+            setLoading(false);
+        });
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-secondary">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-400 text-lg">Loading products...</p>
+                </div>
+            </div>
+        );
+    }
+
+    const data = productsData?.[category];
 
     if (!data) {
         return (

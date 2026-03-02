@@ -1,37 +1,43 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaChevronDown, FaPhone } from 'react-icons/fa';
-import productsData from '../data/productsData';
-
-const productCategories = Object.entries(productsData).map(([slug, data]) => ({
-    name: data.title,
-    slug: slug,
-}));
-
-const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    {
-        name: 'Products',
-        href: '/collections',
-        dropdown: productCategories,
-    },
-    { name: 'Services', href: '/services' },
-    { name: 'Projects', href: '/projects' },
-    {
-        name: 'Media',
-        href: '#',
-        dropdownSimple: ['Videos', 'Photo Gallery'],
-    },
-    { name: 'Blog', href: '/blogs' },
-    { name: 'Contact', href: '/contact' },
-];
+import { fetchProducts } from '../api/products';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
+    const [productCategories, setProductCategories] = useState([]);
     const location = useLocation();
+
+    useEffect(() => {
+        fetchProducts().then(data => {
+            const cats = Object.entries(data).map(([slug, d]) => ({
+                name: d.title,
+                slug: slug,
+            }));
+            setProductCategories(cats);
+        });
+    }, []);
+
+    const navLinks = [
+        { name: 'Home', href: '/' },
+        { name: 'About', href: '/about' },
+        {
+            name: 'Products',
+            href: '/collections',
+            dropdown: productCategories,
+        },
+        { name: 'Services', href: '/services' },
+        { name: 'Projects', href: '/projects' },
+        {
+            name: 'Media',
+            href: '#',
+            dropdownSimple: ['Videos', 'Photo Gallery'],
+        },
+        { name: 'Blog', href: '/blogs' },
+        { name: 'Contact', href: '/contact' },
+    ];
 
     useEffect(() => {
         const handleScroll = () => {

@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaArrowUp } from 'react-icons/fa';
-import productsData from '../data/productsData';
+import { fetchProducts } from '../api/products';
 
 const quickLinks = [
     { name: 'Home', href: '/' },
@@ -11,12 +12,18 @@ const quickLinks = [
     { name: 'Contact', href: '/contact' },
 ];
 
-const productCategories = Object.entries(productsData).map(([slug, data]) => ({
-    name: data.title,
-    href: `/collections/${slug}`,
-}));
-
 const Footer = () => {
+    const [productCategories, setProductCategories] = useState([]);
+
+    useEffect(() => {
+        fetchProducts().then(data => {
+            const cats = Object.entries(data).map(([slug, d]) => ({
+                name: d.title,
+                href: `/collections/${slug}`,
+            }));
+            setProductCategories(cats);
+        });
+    }, []);
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };

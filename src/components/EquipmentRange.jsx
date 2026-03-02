@@ -1,23 +1,30 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
-import productsData from '../data/productsData';
+import { fetchProducts } from '../api/products';
 
-const getCategoryCoverImage = (categoryData, slug) => {
-    // Return first product's image if available, else a fallback or specific default
+const getCategoryCoverImage = (categoryData) => {
     if (categoryData.products && categoryData.products.length > 0) {
         return categoryData.products[0].image;
     }
-    return '/images/logo.png'; // fallback image
+    return '/images/logo.png';
 };
 
-const equipment = Object.entries(productsData).map(([slug, data]) => ({
-    name: data.title,
-    slug: slug,
-    image: getCategoryCoverImage(data, slug),
-    description: data.description || 'Explore our full range of products in this category.',
-}));
-
 const EquipmentRange = () => {
+    const [equipment, setEquipment] = useState([]);
+
+    useEffect(() => {
+        fetchProducts().then(data => {
+            const items = Object.entries(data).map(([slug, d]) => ({
+                name: d.title,
+                slug: slug,
+                image: getCategoryCoverImage(d),
+                description: d.description || 'Explore our full range of products in this category.',
+            }));
+            setEquipment(items);
+        });
+    }, []);
+
     return (
         <section id="products" className="section-padding bg-gold-light">
             <div className="max-w-7xl mx-auto">
