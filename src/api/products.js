@@ -9,13 +9,17 @@ import defaultProductsData from '../data/productsData';
 export const fetchProducts = async () => {
     try {
         const res = await fetch(`${API_BASE}/products`);
-        if (!res.ok) throw new Error('API error');
+        if (!res.ok) {
+            const errorText = await res.text();
+            throw new Error(`API error (${res.status}): ${errorText || res.statusText}`);
+        }
         return await res.json();
     } catch (err) {
         console.warn('⚠️ API unavailable, using fallback data:', err.message);
         return defaultProductsData;
     }
 };
+
 
 /**
  * Add a product to a category via the API
@@ -26,12 +30,25 @@ export const addProduct = async ({ categorySlug, categoryTitle, categoryDescript
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ categorySlug, categoryTitle, categoryDescription, productName, productImage })
     });
+
+    const contentType = res.headers.get('content-type');
     if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to add product');
+        let errorMessage = 'Failed to add product';
+        if (contentType && contentType.includes('application/json')) {
+            const err = await res.json();
+            errorMessage = err.error || errorMessage;
+        } else {
+            errorMessage = await res.text() || errorMessage;
+        }
+        throw new Error(errorMessage);
     }
-    return await res.json();
+
+    if (contentType && contentType.includes('application/json')) {
+        return await res.json();
+    }
+    return { message: 'Product added successfully' };
 };
+
 
 /**
  * Delete a product from a category via the API
@@ -40,9 +57,22 @@ export const deleteProduct = async (categorySlug, productIndex) => {
     const res = await fetch(`${API_BASE}/products/${categorySlug}/${productIndex}`, {
         method: 'DELETE'
     });
+
+    const contentType = res.headers.get('content-type');
     if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.error || 'Failed to delete product');
+        let errorMessage = 'Failed to delete product';
+        if (contentType && contentType.includes('application/json')) {
+            const err = await res.json();
+            errorMessage = err.error || errorMessage;
+        } else {
+            errorMessage = await res.text() || errorMessage;
+        }
+        throw new Error(errorMessage);
     }
-    return await res.json();
+
+    if (contentType && contentType.includes('application/json')) {
+        return await res.json();
+    }
+    return { message: 'Product deleted successfully' };
 };
+
