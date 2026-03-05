@@ -111,53 +111,74 @@ const CollectionPage = () => {
 
             {/* Products Grid */}
             <div className="max-w-7xl mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {data.products.map((product, index) => (
-                        <Link
-                            key={index}
-                            to={`/collections/${category}/${encodeURIComponent(product.name)}`}
-                            className="group relative rounded-2xl overflow-hidden transition-all duration-700 hover:-translate-y-2 block"
+                {data.products.length === 0 ? (
+                    <div className="text-center py-20">
+                        <div className="w-24 h-24 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-8">
+                            <span className="text-5xl">🏗️</span>
+                        </div>
+                        <h2 className="text-3xl font-bold text-white font-heading mb-4">Coming Soon</h2>
+                        <p className="text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
+                            We're currently curating the best products for this category. Contact us to learn more about our {data.title.toLowerCase()} equipment.
+                        </p>
+                        <a
+                            href="https://wa.me/919106780688"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-accent text-secondary px-8 py-3.5 rounded-full font-bold hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5 transition-all duration-300 text-sm"
                         >
-                            {/* Card border / frame */}
-                            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-white/5" />
-                            <div className="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-[#252525] to-[#1a1a1a]" />
-                            <div className="absolute inset-0 rounded-2xl border border-white/5 group-hover:border-accent/20 transition-colors duration-700" />
+                            <FaWhatsapp className="text-lg" />
+                            Enquire Now
+                        </a>
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {data.products.map((product, index) => (
+                            <Link
+                                key={index}
+                                to={`/collections/${category}/${encodeURIComponent(product.name)}`}
+                                className="group relative rounded-2xl overflow-hidden transition-all duration-700 hover:-translate-y-2 block"
+                            >
+                                {/* Card border / frame */}
+                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-white/5" />
+                                <div className="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-[#252525] to-[#1a1a1a]" />
+                                <div className="absolute inset-0 rounded-2xl border border-white/5 group-hover:border-accent/20 transition-colors duration-700" />
 
-                            <div className="relative">
-                                {/* Product Image */}
-                                <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#2a2a2a] to-[#1e1e1e] p-6 flex items-center justify-center relative">
-                                    <img
-                                        src={product.image}
-                                        alt={product.name}
-                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl"
-                                    />
-                                    {/* Subtle glow behind product */}
-                                    <div className="absolute inset-0 bg-gradient-radial from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="relative">
+                                    {/* Product Image */}
+                                    <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#2a2a2a] to-[#1e1e1e] p-6 flex items-center justify-center relative">
+                                        <img
+                                            src={product.image}
+                                            alt={product.name}
+                                            className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-2xl"
+                                        />
+                                        {/* Subtle glow behind product */}
+                                        <div className="absolute inset-0 bg-gradient-radial from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                                    {/* Index badge */}
-                                    <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center">
-                                        <span className="text-[10px] font-bold text-white/50">{String(index + 1).padStart(2, '0')}</span>
+                                        {/* Index badge */}
+                                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center">
+                                            <span className="text-[10px] font-bold text-white/50">{String(index + 1).padStart(2, '0')}</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Product Info */}
-                                <div className="p-5 border-t border-white/5">
-                                    <h3 className="font-bold text-white text-sm md:text-base font-heading tracking-wide group-hover:text-accent transition-colors duration-500">
-                                        {product.name}
-                                    </h3>
-                                    <div className="flex items-center justify-between mt-4">
-                                        <span className="text-accent/50 text-xs font-semibold uppercase tracking-wider group-hover:text-accent/80 transition-colors">
-                                            View Details
-                                        </span>
-                                        <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent/30 group-hover:bg-accent/10 transition-all duration-500">
-                                            <FaArrowRight className="text-[10px] text-white/30 group-hover:text-accent -rotate-45 transition-colors duration-500" />
+                                    {/* Product Info */}
+                                    <div className="p-5 border-t border-white/5">
+                                        <h3 className="font-bold text-white text-sm md:text-base font-heading tracking-wide group-hover:text-accent transition-colors duration-500">
+                                            {product.name}
+                                        </h3>
+                                        <div className="flex items-center justify-between mt-4">
+                                            <span className="text-accent/50 text-xs font-semibold uppercase tracking-wider group-hover:text-accent/80 transition-colors">
+                                                View Details
+                                            </span>
+                                            <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent/30 group-hover:bg-accent/10 transition-all duration-500">
+                                                <FaArrowRight className="text-[10px] text-white/30 group-hover:text-accent -rotate-45 transition-colors duration-500" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
             </div>
 
             {/* Contact Bar */}

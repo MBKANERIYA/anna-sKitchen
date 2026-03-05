@@ -1,4 +1,5 @@
 import { FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const projects = [
     {
@@ -55,9 +56,9 @@ const Projects = () => {
                             <div className="absolute bottom-0 left-0 right-0 p-6">
                                 <span className="text-accent text-xs font-bold uppercase tracking-wider">{project.category}</span>
                                 <h3 className="text-xl font-bold text-white mt-1 font-heading">{project.name}</h3>
-                                <div className="mt-3 flex items-center gap-2 text-white/70 text-sm group-hover:text-accent transition-colors">
+                                <Link to="/projects" className="mt-3 flex items-center gap-2 text-white/70 text-sm group-hover:text-accent transition-colors">
                                     View Project <FaArrowRight className="text-xs" />
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     ))}

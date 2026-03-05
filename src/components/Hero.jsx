@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const slides = [
     {
@@ -22,11 +23,11 @@ const slides = [
 ];
 
 const categories = [
-    'Hotel & Restaurant',
-    'Cafe & Bakery Kitchen',
-    'Bar & Food Court',
-    'Canteen & Cloud Kitchen',
-    'Hospital & Pantry Kitchen',
+    { name: 'Hotel & Restaurant', slug: 'hotel-and-restaurant' },
+    { name: 'Cafe & Bakery Kitchen', slug: 'cafe-and-bakery-kitchen' },
+    { name: 'Bar & Food Court', slug: 'bar-and-food-court' },
+    { name: 'Canteen & Cloud Kitchen', slug: 'canteen-and-cloud-kitchen' },
+    { name: 'Hospital & Pantry Kitchen', slug: 'hospital-and-pantry-kitchen' },
 ];
 
 const Hero = () => {
@@ -95,14 +96,15 @@ const Hero = () => {
                         ))}
 
                         {/* Category pills */}
-                        <div className="flex flex-wrap gap-2 mt-4">
+                        <div className="flex flex-wrap gap-2 mt-4 relative z-30">
                             {categories.map((cat) => (
-                                <span
-                                    key={cat}
-                                    className="bg-white/10 backdrop-blur-sm text-white/90 px-4 py-2 rounded-full text-xs font-medium border border-white/10 hover:bg-white/20 transition-colors duration-300 cursor-default"
+                                <Link
+                                    key={cat.slug}
+                                    to={`/collections/${cat.slug}`}
+                                    className="bg-white/10 backdrop-blur-sm text-white/90 px-4 py-2 rounded-full text-xs font-medium border border-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 cursor-pointer"
                                 >
-                                    {cat}
-                                </span>
+                                    {cat.name}
+                                </Link>
                             ))}
                         </div>
                     </div>
@@ -121,7 +123,7 @@ const Hero = () => {
             </div>
 
             {/* Bottom gradient */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-20" />
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-20 pointer-events-none" />
         </section>
     );
 };

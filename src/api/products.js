@@ -25,10 +25,16 @@ export const fetchProducts = async () => {
  * Add a product to a category via the API
  */
 export const addProduct = async ({ categorySlug, categoryTitle, categoryDescription, productName, productImage }) => {
+    const formData = new FormData();
+    formData.append('categorySlug', categorySlug);
+    formData.append('categoryTitle', categoryTitle || '');
+    formData.append('categoryDescription', categoryDescription || '');
+    formData.append('productName', productName);
+    formData.append('productImage', productImage);
+
     const res = await fetch(`${API_BASE}/products`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ categorySlug, categoryTitle, categoryDescription, productName, productImage })
+        body: formData
     });
 
     const contentType = res.headers.get('content-type');

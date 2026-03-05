@@ -1,10 +1,40 @@
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaCalendar, FaUser, FaArrowLeft } from 'react-icons/fa';
-import blogsData from '../data/blogsData';
+import { fetchBlogs } from '../api/blogs';
 
 const BlogPage = () => {
     const { slug } = useParams();
-    const blog = blogsData.find((b) => b.slug === slug);
+    const [blog, setBlog] = useState(null);
+    const [relatedBlogs, setRelatedBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadBlogData = async () => {
+            try {
+                const allBlogs = await fetchBlogs();
+                const foundBlog = allBlogs.find((b) => b.slug === slug);
+                setBlog(foundBlog || null);
+                setRelatedBlogs(allBlogs.filter((b) => b.slug !== slug).slice(0, 3));
+            } catch (error) {
+                console.error("Failed to fetch blog:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadBlogData();
+    }, [slug]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-500 text-lg">Loading blog...</p>
+                </div>
+            </div>
+        );
+    }
 
     if (!blog) {
         return (
@@ -23,9 +53,6 @@ const BlogPage = () => {
             </div>
         );
     }
-
-    // Get other blogs for "Related" section
-    const relatedBlogs = blogsData.filter((b) => b.slug !== slug).slice(0, 3);
 
     return (
         <div className="min-h-screen bg-white">

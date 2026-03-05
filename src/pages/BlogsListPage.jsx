@@ -1,9 +1,38 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaCalendar, FaArrowRight } from 'react-icons/fa';
-import blogsData from '../data/blogsData';
+import { fetchBlogs } from '../api/blogs';
 import CTA from '../components/CTA';
 
 const BlogsListPage = () => {
+    const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadBlogs = async () => {
+            try {
+                const data = await fetchBlogs();
+                setBlogs(data);
+            } catch (error) {
+                console.error("Failed to fetch blogs:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadBlogs();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-white flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-gray-500 text-lg">Loading blogs...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Banner */}
@@ -40,7 +69,7 @@ const BlogsListPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {blogsData.map((blog) => (
+                    {blogs.map((blog) => (
                         <Link
                             key={blog.slug}
                             to={`/blog/${blog.slug}`}

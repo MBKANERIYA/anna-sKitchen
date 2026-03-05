@@ -1,8 +1,27 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaCalendar } from 'react-icons/fa';
-import blogsData from '../data/blogsData';
+import { fetchBlogs } from '../api/blogs';
 
 const BlogSection = () => {
+    const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadBlogs = async () => {
+            try {
+                const data = await fetchBlogs();
+                // Show only up to 4 latest blogs on the homepage section
+                setBlogs(data.slice(0, 4));
+            } catch (error) {
+                console.error("Failed to fetch blogs:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadBlogs();
+    }, []);
+
     return (
         <section id="blog" className="section-padding bg-gold-light">
             <div className="max-w-7xl mx-auto">
@@ -15,37 +34,42 @@ const BlogSection = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {blogsData.map((blog) => (
-                        <Link
-                            key={blog.slug}
-                            to={`/blog/${blog.slug}`}
-                            className="block cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-md shadow-black/5 border border-gray-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500"
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <div className="relative aspect-[16/10] overflow-hidden">
-                                <img
-                                    src={blog.image}
-                                    alt={blog.title}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                />
-                                <span className="absolute top-4 left-4 bg-accent text-secondary text-xs font-bold px-3 py-1 rounded-full">
-                                    {blog.category}
-                                </span>
-                            </div>
-                            <div className="p-5">
-                                <div className="flex items-center gap-2 text-gray-medium text-xs mb-3">
-                                    <FaCalendar className="text-primary" />
-                                    {blog.date}
+                    {loading ? (
+                        <div className="col-span-full flex justify-center py-10">
+                            <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        blogs.map((blog) => (
+                            <Link
+                                key={blog.slug}
+                                to={`/blog/${blog.slug}`}
+                                className="block cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-md shadow-black/5 border border-gray-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500"
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <div className="relative aspect-[16/10] overflow-hidden">
+                                    <img
+                                        src={blog.image}
+                                        alt={blog.title}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                    />
+                                    <span className="absolute top-4 left-4 bg-accent text-secondary text-xs font-bold px-3 py-1 rounded-full">
+                                        {blog.category}
+                                    </span>
                                 </div>
-                                <h3 className="text-sm font-bold text-secondary leading-snug mb-4 line-clamp-2 group-hover:text-primary transition-colors font-heading">
-                                    {blog.title}
-                                </h3>
-                                <span className="inline-flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
-                                    Read More <FaArrowRight className="text-xs" />
-                                </span>
-                            </div>
-                        </Link>
-                    ))}
+                                <div className="p-5">
+                                    <div className="flex items-center gap-2 text-gray-medium text-xs mb-3">
+                                        <FaCalendar className="text-primary" />
+                                        {blog.date}
+                                    </div>
+                                    <h3 className="text-sm font-bold text-secondary leading-snug mb-4 line-clamp-2 group-hover:text-primary transition-colors font-heading">
+                                        {blog.title}
+                                    </h3>
+                                    <span className="inline-flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-300">
+                                        Read More <FaArrowRight className="text-xs" />
+                                    </span>
+                                </div>
+                            </Link>
+                        )))}
                 </div>
             </div>
         </section>

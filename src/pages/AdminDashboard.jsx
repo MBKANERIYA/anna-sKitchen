@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchProducts, addProduct, deleteProduct } from '../api/products';
-import blogsData, { saveBlogsData } from '../data/blogsData';
+import { fetchBlogs, addBlog, deleteBlog } from '../api/blogs';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('manage-products');
     const [productsData, setProductsData] = useState({});
+    const [blogsData, setBlogsData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [filterCategory, setFilterCategory] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
@@ -15,37 +16,50 @@ const AdminDashboard = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [newCategoryName, setNewCategoryName] = useState('');
     const [productName, setProductName] = useState('');
-    const [productImage, setProductImage] = useState('');
+    const [productImage, setProductImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState('');
 
     // Blog States
     const [blogTitle, setBlogTitle] = useState('');
     const [blogCategory, setBlogCategory] = useState('');
     const [blogAuthor, setBlogAuthor] = useState('');
-    const [blogImage, setBlogImage] = useState('');
+    const [blogImage, setBlogImage] = useState(null);
+    const [blogImagePreview, setBlogImagePreview] = useState('');
     const [blogContent, setBlogContent] = useState('');
 
     const [successMessage, setSuccessMessage] = useState('');
 
-    // Fetch products from API on mount
+    // Fetch data from API on mount
     useEffect(() => {
-        loadProducts();
+        loadData();
     }, []);
 
-    const loadProducts = async () => {
+    const loadData = async () => {
         setLoading(true);
         try {
-            const data = await fetchProducts();
-            setProductsData(data);
-            const keys = Object.keys(data);
+            const [pData, bData] = await Promise.all([
+                fetchProducts(),
+                fetchBlogs()
+            ]);
+
+            setProductsData(pData);
+            setBlogsData(bData);
+
+            const keys = Object.keys(pData);
             if (keys.length > 0) {
-                if (!filterCategory || !data[filterCategory]) setFilterCategory(keys[0]);
-                if (!selectedCategory || !data[selectedCategory]) setSelectedCategory(keys[0]);
+                if (!filterCategory || !pData[filterCategory]) setFilterCategory(keys[0]);
+                if (!selectedCategory || !pData[selectedCategory]) setSelectedCategory(keys[0]);
             }
         } catch (err) {
-            console.error('Failed to load products:', err);
+            console.error('Failed to load data:', err);
         } finally {
             setLoading(false);
         }
+    };
+
+    // Kept loadProducts wrapper for reuse inside handler
+    const loadProducts = async () => {
+        await loadData();
     };
 
     const handleAddProduct = async (e) => {
@@ -80,7 +94,8 @@ const AdminDashboard = () => {
 
             setSuccessMessage(result.message || `Successfully added "${productName}"!`);
             setProductName('');
-            setProductImage('');
+            setProductImage(null);
+            setImagePreview('');
             setNewCategoryName('');
 
             // Refresh product list from database
@@ -108,43 +123,63 @@ const AdminDashboard = () => {
         }
     };
 
-    const handleAddBlog = (e) => {
+    const handleAddBlog = async (e) => {
         e.preventDefault();
 
-        if (!blogTitle || !blogContent) {
-            alert("Please fill in the blog title and content.");
+        if (!blogTitle || !blogContent || !blogImage) {
+            alert("Please fill in the blog title, content, and select an image.");
             return;
         }
 
         const newSlug = blogTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         const dateString = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 
-        const newBlog = {
-            slug: newSlug,
-            title: blogTitle,
-            image: blogImage || '/blog/download.jpg',
-            date: dateString,
-            category: blogCategory || 'General',
-            author: blogAuthor || 'Admin',
-            content: [
-                {
-                    heading: blogTitle,
-                    text: blogContent
-                }
-            ]
-        };
+        const contentArray = [
+            {
+                heading: blogTitle,
+                text: blogContent
+            }
+        ];
 
-        blogsData.unshift(newBlog);
-        saveBlogsData();
+        try {
+            const result = await addBlog({
+                slug: newSlug,
+                title: blogTitle,
+                blogImage: blogImage,
+                date: dateString,
+                category: blogCategory || 'General',
+                author: blogAuthor || 'Admin',
+                content: contentArray
+            });
 
-        setSuccessMessage(`Successfully published blog: "${blogTitle}"!`);
-        setBlogTitle('');
-        setBlogCategory('');
-        setBlogAuthor('');
-        setBlogImage('');
-        setBlogContent('');
+            setSuccessMessage(result.message || `Successfully published blog: "${blogTitle}"!`);
+            setBlogTitle('');
+            setBlogCategory('');
+            setBlogAuthor('');
+            setBlogImage(null);
+            setBlogImagePreview('');
+            setBlogContent('');
+
+            await loadData(); // refresh blogs list
+
+        } catch (err) {
+            alert('Error adding blog: ' + err.message);
+        }
 
         setTimeout(() => setSuccessMessage(''), 3000);
+    };
+
+    const handleDeleteBlog = async (slug) => {
+        if (window.confirm("Are you sure you want to delete this blog?")) {
+            try {
+                await deleteBlog(slug);
+                setSuccessMessage("Blog deleted successfully.");
+                await loadData();
+            } catch (err) {
+                alert('Error deleting blog: ' + err.message);
+            }
+            setTimeout(() => setSuccessMessage(''), 3000);
+        }
     };
 
     if (loading) {
@@ -375,21 +410,24 @@ const AdminDashboard = () => {
                                     />
                                 </div>
 
-                                {/* Product Image URL */}
+                                {/* Product Image Upload */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Image Path / URL
+                                        Product Image File
                                     </label>
                                     <input
-                                        type="text"
+                                        type="file"
+                                        accept="image/*"
                                         required
-                                        value={productImage}
-                                        onChange={(e) => setProductImage(e.target.value)}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
-                                        placeholder="e.g. /images/new-product.png or https://..."
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            setProductImage(file);
+                                            setImagePreview(file ? URL.createObjectURL(file) : '');
+                                        }}
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white transition-all font-medium file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent file:text-secondary hover:file:bg-white cursor-pointer"
                                     />
                                     <p className="text-xs text-gray-400 mt-2">
-                                        Enter the local path to the image if it exists in the public folder, or a full valid URL.
+                                        Select an image file from your device. It will be uploaded to Cloudinary safely.
                                     </p>
                                 </div>
 
@@ -412,7 +450,7 @@ const AdminDashboard = () => {
                                     <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden flex flex-col group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-accent/50 transition-all duration-300 relative">
                                         <div className="aspect-[4/3] bg-white p-4 relative flex items-center justify-center">
                                             <img
-                                                src={productImage || '/images/logo.png'}
+                                                src={imagePreview || '/images/logo.png'}
                                                 alt={productName || 'Product Preview'}
                                                 className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                                                 onError={(e) => { e.target.src = '/images/logo.png' }}
@@ -435,7 +473,45 @@ const AdminDashboard = () => {
                     )}
 
                     {activeTab === 'blogs' && (
-                        <div className="flex flex-col lg:flex-row gap-12 animate-fadeIn">
+                        <div className="space-y-8 animate-fadeIn mb-12">
+                            <h3 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+                                Current Blog Posts
+                            </h3>
+                            {blogsData.length === 0 ? (
+                                <p className="text-gray-500 text-sm italic py-4">No blogs found.</p>
+                            ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                                    {blogsData.map((blog) => (
+                                        <div key={blog.slug} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden flex flex-col group relative">
+                                            <button
+                                                onClick={() => handleDeleteBlog(blog.slug)}
+                                                className="absolute top-3 right-3 bg-red-500/80 hover:bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
+                                                title="Delete Blog"
+                                            >
+                                                <FaTrash className="text-xs" />
+                                            </button>
+                                            <div className="aspect-video bg-black/50 relative overflow-hidden">
+                                                <img
+                                                    src={blog.image}
+                                                    alt={blog.title}
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                                    onError={(e) => { e.target.src = '/images/logo.png' }}
+                                                />
+                                            </div>
+                                            <div className="p-4 flex-1">
+                                                <span className="text-xs text-accent font-bold uppercase mb-1 block">{blog.category}</span>
+                                                <h4 className="font-bold text-white text-md line-clamp-2">{blog.title}</h4>
+                                                <p className="text-xs text-gray-400 mt-2">{blog.date} • {blog.author}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {activeTab === 'blogs' && (
+                        <div className="flex flex-col lg:flex-row gap-12 animate-fadeIn border-t border-white/10 pt-8">
                             <form onSubmit={handleAddBlog} className="space-y-6 lg:w-1/2">
                                 {/* Blog Title */}
                                 <div>
@@ -482,17 +558,21 @@ const AdminDashboard = () => {
                                     </div>
                                 </div>
 
-                                {/* Blog Image URL */}
+                                {/* Blog Image Upload */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Featured Image Path / URL
+                                        Featured Image File
                                     </label>
                                     <input
-                                        type="text"
-                                        value={blogImage}
-                                        onChange={(e) => setBlogImage(e.target.value)}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
-                                        placeholder="e.g. /blog/download.jpg or https://..."
+                                        type="file"
+                                        accept="image/*"
+                                        required
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            setBlogImage(file);
+                                            setBlogImagePreview(file ? URL.createObjectURL(file) : '');
+                                        }}
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white transition-all font-medium file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent file:text-secondary hover:file:bg-white cursor-pointer"
                                     />
                                 </div>
 
@@ -531,7 +611,7 @@ const AdminDashboard = () => {
                                         <div className="h-48 overflow-hidden relative">
                                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 duration-500 pointer-events-none"></div>
                                             <img
-                                                src={blogImage || "/blog/download.jpg"}
+                                                src={blogImagePreview || "/blog/download.jpg"}
                                                 alt={blogTitle || "Blog Subject"}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                 onError={(e) => { e.target.src = '/images/logo.png' }}

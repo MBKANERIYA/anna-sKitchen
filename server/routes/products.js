@@ -1,6 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const { v2: cloudinary } = require('cloudinary');
 const Category = require('../models/Product');
+
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// Configure Multer for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 
 // GET /api/products - Fetch all categories with their products
 router.get('/', async (req, res) => {
@@ -30,12 +44,30 @@ router.get('/', async (req, res) => {
 
 
 // POST /api/products - Add a product to a category (or create new category)
-router.post('/', async (req, res) => {
+router.post('/', upload.single('productImage'), async (req, res) => {
     try {
-        const { categorySlug, categoryTitle, categoryDescription, productName, productImage } = req.body;
+        const { categorySlug, categoryTitle, categoryDescription, productName } = req.body;
 
-        if (!productName || !productImage) {
-            return res.status(400).json({ error: 'Product name and image are required' });
+        let productImage = req.body.productImage; // Allow passing URL directly if no file
+
+        if (!productName) {
+            return res.status(400).json({ error: 'Product name is required' });
+        }
+
+        // If a file is uploaded, send it to Cloudinary
+        if (req.file) {
+            const b64 = Buffer.from(req.file.buffer).toString('base64');
+            const dataURI = `data:${req.file.mimetype};base64,${b64}`;
+
+            const uploadResponse = await cloudinary.uploader.upload(dataURI, {
+                folder: 'annas-kitchen/products'
+            });
+
+            productImage = uploadResponse.secure_url;
+        }
+
+        if (!productImage) {
+            return res.status(400).json({ error: 'Product image (file or URL) is required' });
         }
 
         let category = await Category.findOne({ slug: categorySlug });

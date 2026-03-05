@@ -145,6 +145,41 @@ const defaultProductsData = {
             { name: 'Fastfood Counter', image: '/images/p21.png' },
         ],
     },
+    'hotel-and-restaurant': {
+        title: 'HOTEL & RESTAURANT',
+        slug: 'hotel-and-restaurant',
+        description:
+            'Complete Kitchen Solutions For Hotels And Restaurants. From Heavy-Duty Cooking Equipment To Elegant Serving Stations, We Provide Everything You Need To Run A Professional Hospitality Kitchen.',
+        products: [],
+    },
+    'cafe-and-bakery-kitchen': {
+        title: 'CAFE & BAKERY KITCHEN',
+        slug: 'cafe-and-bakery-kitchen',
+        description:
+            'Specialized Equipment For Cafes And Bakery Kitchens. Our Range Includes Ovens, Display Counters, Coffee Stations, And Everything Needed To Create A Perfect Cafe Experience.',
+        products: [],
+    },
+    'bar-and-food-court': {
+        title: 'BAR & FOOD COURT',
+        slug: 'bar-and-food-court',
+        description:
+            'Premium Equipment For Bars And Food Courts. From Beverage Dispensers To Fast-Service Counters, We Offer Durable And Stylish Solutions For High-Traffic Environments.',
+        products: [],
+    },
+    'canteen-and-cloud-kitchen': {
+        title: 'CANTEEN & CLOUD KITCHEN',
+        slug: 'canteen-and-cloud-kitchen',
+        description:
+            'Efficient And Scalable Equipment For Canteens And Cloud Kitchens. Designed For Bulk Cooking And Quick Service, Our Solutions Help You Serve More With Less Effort.',
+        products: [],
+    },
+    'hospital-and-pantry-kitchen': {
+        title: 'HOSPITAL & PANTRY KITCHEN',
+        slug: 'hospital-and-pantry-kitchen',
+        description:
+            'Hygienic And Reliable Kitchen Equipment For Hospitals And Pantry Kitchens. Our Products Meet The Highest Standards Of Cleanliness And Safety Required In Healthcare Environments.',
+        products: [],
+    },
 };
 
 const saved = localStorage.getItem('productsData');
