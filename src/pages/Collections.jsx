@@ -13,13 +13,26 @@ const categoryImages = {
     processing: '/images/p1.png',
 };
 
+const ALLOWED_SLUGS = [
+    'bakery-products',
+    'refrigeration',
+    'heating-range',
+    'chat-and-fast-food-counter',
+    'work-and-profession-table',
+    'rack-trolley',
+    'processing',
+];
+
 const Collections = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetchProducts().then(data => {
-            setCategories(Object.values(data));
+            const filtered = ALLOWED_SLUGS
+                .filter(slug => data[slug])
+                .map(slug => data[slug]);
+            setCategories(filtered);
             setLoading(false);
         });
     }, []);
