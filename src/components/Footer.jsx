@@ -12,15 +12,27 @@ const quickLinks = [
     { name: 'Contact', href: '/contact' },
 ];
 
+const FOOTER_CATEGORY_SLUGS = [
+    'bakery-products',
+    'refrigeration',
+    'heating-range',
+    'chat-and-fast-food-counter',
+    'work-and-profession-table',
+    'rack-trolley',
+    'processing',
+];
+
 const Footer = () => {
     const [productCategories, setProductCategories] = useState([]);
 
     useEffect(() => {
         fetchProducts().then(data => {
-            const cats = Object.entries(data).map(([slug, d]) => ({
-                name: d.title,
-                href: `/collections/${slug}`,
-            }));
+            const cats = FOOTER_CATEGORY_SLUGS
+                .filter(slug => data[slug])
+                .map(slug => ({
+                    name: data[slug].title,
+                    href: `/collections/${slug}`,
+                }));
             setProductCategories(cats);
         });
     }, []);

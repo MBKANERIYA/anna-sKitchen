@@ -24,6 +24,25 @@ const About = () => {
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-secondary mt-3 font-heading">
                         Anna's Kitchen Equipments
                     </h2>
+                    <p className="text-gray-600 text-sm leading-relaxed mt-4 max-w-3xl">
+                        Leading brands and businesses choose Anna's Kitchen for our commitment to quality, performance, and customer satisfaction.
+                    </p>
+                </div>
+
+                {/* Why Choose Us Points */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+                    {[
+                        { title: 'Premium Quality & Durability', desc: 'We use only high-grade stainless steel and components, ensuring all our products are durable, hygienic, corrosion-resistant & built to withstand the demands of heavy usage.' },
+                        { title: 'Customized Solutions', desc: 'No two kitchens are the same. We offer bespoke design, planning, and tailor-made equipment solutions to fit your specific space, menu, and operational requirements.' },
+                        { title: '360-Degree Support', desc: "Our service doesn't end with a sale. We provide end-to-end support including consultation, installation, design, commissioning & prompt after-sales service and maintenance." },
+                        { title: 'Innovation & Efficiency', desc: 'Our products incorporate advanced technology, focusing on energy efficiency and safety to reduce operational costs and environmental impact.' },
+                        { title: 'Trusted Expertise', desc: 'With decades of experience, our team of skilled engineers, designers, and technicians ensures every product meets stringent quality control standards and international regulations.' },
+                    ].map((item, i) => (
+                        <div key={i} className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                            <h4 className="text-primary font-bold text-base mb-2">{item.title}</h4>
+                            <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">

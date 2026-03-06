@@ -10,12 +10,25 @@ const Header = () => {
     const [productCategories, setProductCategories] = useState([]);
     const location = useLocation();
 
+    // Only these 7 categories should appear in the header dropdown
+    const HEADER_CATEGORY_SLUGS = [
+        'bakery-products',
+        'refrigeration',
+        'heating-range',
+        'chat-and-fast-food-counter',
+        'work-and-profession-table',
+        'rack-trolley',
+        'processing',
+    ];
+
     useEffect(() => {
         fetchProducts().then(data => {
-            const cats = Object.entries(data).map(([slug, d]) => ({
-                name: d.title,
-                slug: slug,
-            }));
+            const cats = HEADER_CATEGORY_SLUGS
+                .filter(slug => data[slug])
+                .map(slug => ({
+                    name: data[slug].title,
+                    slug: slug,
+                }));
             setProductCategories(cats);
         });
     }, []);

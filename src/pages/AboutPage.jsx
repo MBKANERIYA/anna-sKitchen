@@ -81,27 +81,55 @@ const AboutPage = () => {
                 </form>
             </div>
 
-            {/* About Content */}
+            {/* About Us */}
             <div className="max-w-5xl mx-auto px-4 py-12">
-                <span className="text-primary text-xs font-bold uppercase tracking-widest">
-                    Cooking Equipment Manufacturing Company in Surat
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold text-secondary mt-3 mb-6 font-heading">
-                    About <span className="text-primary">Anna's Kitchen Equipments</span> – Your Trusted Partner for Commercial Kitchen Solutions
+                <h2 className="text-2xl md:text-3xl font-bold text-primary mt-3 mb-6 font-heading">
+                    About Us
                 </h2>
                 <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
                     <p>
-                        Founded in 2007, Anna's Kitchen Equipments has been delivering top-quality commercial kitchen equipment designed to meet the unique needs of restaurants, hotels, cloud kitchens, and catering businesses. As one of the leading kitchen equipment manufacturers and suppliers in India, our mission is to make your kitchen setup seamless and cost-effective.
+                        <strong className="text-secondary">Anna's Kitchen Equipment's</strong> is a premier provider of high-quality commercial and industrial kitchen equipment, dedicated to delivering innovative, durable, and cost-effective solutions for the food service industry with 13 years of industry expertise, we have established ourselves as a trusted name in manufacturing and supplying a comprehensive range of kitchen machinery for hotels, restaurants, canteens, hospitals, and more.
                     </p>
+                </div>
+
+                {/* Our Vision */}
+                <h2 className="text-2xl md:text-3xl font-bold text-primary mt-10 mb-6 font-heading">
+                    Our Vision
+                </h2>
+                <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
                     <p>
-                        We know how challenging it can be to find reliable and durable industrial kitchen equipment at the right price. That's why we offer a complete range of affordable kitchen equipment — from basic tools to advanced appliances — all under one roof.
+                        We envision transforming the culinary landscape by providing intelligent kitchen systems that blend functionality with modern design, optimizing space, improving efficiency, and elevating the food preparation experience for our clients worldwide.
                     </p>
-                    <p>
-                        Whether you're launching a new food business or upgrading your hotel kitchen equipment, our expert team is here to help you choose the perfect setup tailored to your operations. With a focus on quality, performance, and customer satisfaction, Anna's Kitchen Equipments is your one-stop destination for all professional kitchen needs.
-                    </p>
-                    <p>
-                        Explore the world of efficient and innovative cooking solutions at annakitchenequipments.in — where your culinary vision comes to life.
-                    </p>
+                </div>
+
+                {/* Why Choose Us */}
+                <h2 className="text-2xl md:text-3xl font-bold text-primary mt-10 mb-4 font-heading">
+                    Why Choose Us ?
+                </h2>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                    Leading brands and businesses choose Anna's Kitchen for our commitment to quality, performance, and customer satisfaction.
+                </p>
+                <div className="space-y-5 text-gray-600 text-sm leading-relaxed">
+                    <div>
+                        <h4 className="text-primary font-bold text-base inline">Premium Quality & Durability </h4>
+                        <span>We use only high-grade stainless steel and components, ensuring all our products are durable, hygienic, corrosion-resistant & built to withstand the demands of heavy usage.</span>
+                    </div>
+                    <div>
+                        <h4 className="text-primary font-bold text-base inline">Customized Solutions </h4>
+                        <span>No two kitchens are the same. We offer bespoke design, planning, and tailor-made equipment solutions to fit your specific space, menu, and operational requirements.</span>
+                    </div>
+                    <div>
+                        <h4 className="text-primary font-bold text-base inline">360-Degree Support </h4>
+                        <span>Our service doesn't end with a sale. We provide end-to-end support including consultation, installation, design, commissioning & prompt after-sales service and maintenance.</span>
+                    </div>
+                    <div>
+                        <h4 className="text-primary font-bold text-base inline">Innovation & Efficiency </h4>
+                        <span>Our products incorporate advanced technology, focusing on energy efficiency and safety to reduce operational costs and environmental impact.</span>
+                    </div>
+                    <div>
+                        <h4 className="text-primary font-bold text-base inline">Trusted Expertise </h4>
+                        <span>With decades of experience, our team of skilled engineers, designers, and technicians ensures every product meets stringent quality control standards and international regulations.</span>
+                    </div>
                 </div>
             </div>
 

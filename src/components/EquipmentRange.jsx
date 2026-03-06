@@ -10,17 +10,29 @@ const getCategoryCoverImage = (categoryData) => {
     return '/images/logo.png';
 };
 
+const ALLOWED_SLUGS = [
+    'bakery-products',
+    'refrigeration',
+    'heating-range',
+    'chat-and-fast-food-counter',
+    'work-and-profession-table',
+    'rack-trolley',
+    'processing',
+];
+
 const EquipmentRange = () => {
     const [equipment, setEquipment] = useState([]);
 
     useEffect(() => {
         fetchProducts().then(data => {
-            const items = Object.entries(data).map(([slug, d]) => ({
-                name: d.title,
-                slug: slug,
-                image: getCategoryCoverImage(d),
-                description: d.description || 'Explore our full range of products in this category.',
-            }));
+            const items = ALLOWED_SLUGS
+                .filter(slug => data[slug])
+                .map(slug => ({
+                    name: data[slug].title,
+                    slug: slug,
+                    image: getCategoryCoverImage(data[slug]),
+                    description: data[slug].description || 'Explore our full range of products in this category.',
+                }));
             setEquipment(items);
         });
     }, []);

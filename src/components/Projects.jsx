@@ -65,12 +65,12 @@ const Projects = () => {
                 </div>
 
                 <div className="text-center mt-10 flex flex-wrap justify-center gap-4">
-                    <a href="#" className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-7 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300 text-sm">
+                    <Link to="/projects" className="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-dark text-white px-7 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300 text-sm">
                         Project Gallery
-                    </a>
-                    <a href="#" className="inline-flex items-center gap-2 border-2 border-primary text-primary px-7 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300 text-sm">
+                    </Link>
+                    <Link to="/projects" className="inline-flex items-center gap-2 border-2 border-primary text-primary px-7 py-3 rounded-full font-semibold hover:bg-primary hover:text-white transition-all duration-300 text-sm">
                         Completed Projects
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>
