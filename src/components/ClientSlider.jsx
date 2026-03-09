@@ -9,11 +9,12 @@ const clientLogos = [
     { name: 'Atul Bakery', image: '/clients/Atul-bakery-Logo-new.svg' },
     { name: 'Subway', image: '/clients/subway-logo.e7b602efa8e0c7316077.webp' },
     { name: 'Sumul Dairy', image: '/clients/sumul_dairy_logo.jpg' },
-    { name: 'Brand', image: '/clients/download (1).png' },
+    { name: 'OYO', image: '/clients/download (1).png' },
     { name: 'Client', image: '/clients/487824977_122233010432025315_6264959669572713421_n.jpg' },
     // { name: 'Client', image: '/clients/WhatsApp Image 2026-02-26 at 17.33.43.jpeg' },
     { name: 'Client', image: '/clients/WhatsApp Image 2026-02-26 at 17.33.43 (1).jpeg' },
     { name: 'Client', image: '/clients/unnamed.jpg' },
+    { name: 'IRCTC', image: '/clients/IRCTC.png' },
 ];
 
 const ClientSlider = () => {

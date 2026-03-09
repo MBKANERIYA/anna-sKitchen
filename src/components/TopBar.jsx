@@ -25,12 +25,7 @@ const TopBar = () => {
                     <a href="https://www.instagram.com/annas_kitchen_equipments" target="_blank" rel="noopener noreferrer" className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-secondary transition-all duration-300">
                         <FaInstagram className="text-xs" />
                     </a>
-                    <a href="#" className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-secondary transition-all duration-300">
-                        <FaYoutube className="text-xs" />
-                    </a>
-                    <a href="#" className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-secondary transition-all duration-300">
-                        <FaLinkedinIn className="text-xs" />
-                    </a>
+
                 </div>
             </div>
         </div>

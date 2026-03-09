@@ -27,6 +27,12 @@ const projectsList = [
     { name: 'Atul Bakery', location: 'Surat, Gujarat' },
     { name: 'Subway', location: 'Surat, Gujarat' },
     { name: 'Sumul Dairy', location: 'Surat, Gujarat' },
+    { name: 'Oyo', location: 'Surat, Gujarat' },
+    { name: 'La Pinoz', location: 'Surat, Gujarat' },
+    { name: 'Butterfly High', location: 'Surat, Gujarat' },
+    { name: 'ShivSagar', location: 'Surat, Gujarat' },
+    { name: 'Maakhan Bhog', location: 'Surat, Gujarat' },
+    { name: 'Sugar N Spice', location: 'Surat, Gujarat' },
 ];
 
 const ProjectsPage = () => {
