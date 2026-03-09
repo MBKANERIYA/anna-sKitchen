@@ -64,6 +64,14 @@ const Footer = () => {
                                 <FaPhone className="text-accent text-xs" />
                                 +91-91067 80688
                             </a>
+                            <a href="tel:+919510770343" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
+                                <FaPhone className="text-accent text-xs" />
+                                +91-95107 70343
+                            </a>
+                            <a href="tel:+9429768135" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
+                                <FaPhone className="text-accent text-xs" />
+                                +91-94297 68135
+                            </a>
                             <a href="mailto:annaskitchenequipment@gmail.com" className="flex items-center gap-3 text-white/60 text-sm hover:text-accent transition-colors">
                                 <FaEnvelope className="text-accent text-xs" />
                                 annaskitchenequipment@gmail.com
