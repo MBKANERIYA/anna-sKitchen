@@ -204,7 +204,7 @@ const ProductDetailPage = () => {
                     Explore Anna Kitchen Products or <span className="border-b border-secondary">Shop By Brand</span>
                 </Link>
                 <span className="text-gray-300">|</span>
-                <a href="#" className="text-secondary text-sm font-semibold hover:text-primary transition-colors border-b border-secondary">
+                <a href="/Anna Kitchen Broucher.pdf" download className="text-secondary text-sm font-semibold hover:text-primary transition-colors border-b border-secondary">
                     Download Brochure
                 </a>
             </div>

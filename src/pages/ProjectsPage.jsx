@@ -148,7 +148,7 @@ const ProjectsPage = () => {
                     Explore Anna Kitchen Products or Shop by Brand
                 </Link>
                 <span className="text-gray-300">|</span>
-                <a href="#" className="text-primary text-sm font-semibold hover:underline">
+                <a href="/Anna Kitchen Broucher.pdf" download className="text-primary text-sm font-semibold hover:underline">
                     Download Brochure
                 </a>
             </div>
