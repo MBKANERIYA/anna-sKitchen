@@ -1,14 +1,12 @@
 import { useEffect, useRef } from 'react';
 
 const partnerLogos = [
-    { name: 'Cellfrost', color: '#E53935' },
-    { name: 'BUTLER', color: '#1a1a1a' },
-    { name: 'Vitamix', color: '#333' },
-    { name: 'Rockwell', color: '#2196F3' },
-    { name: 'RATIONAL', color: '#D32F2F' },
-    { name: 'TRUFROST', color: '#0D47A1' },
-    { name: 'Western', color: '#F57C00' },
-    { name: 'EzyCook', color: '#00897B' },
+    { name: 'Cellfrost', logo: '/Partners/Cellfrost.png', bg: '#000' },
+    { name: 'Rational', logo: '/Partners/Rational.svg' },
+    { name: 'Vitamix', logo: '/Partners/vitamix.jpg' },
+    { name: 'Rockwell', logo: '/Partners/Rockwell.png' },
+    { name: 'TRUFROST', logo: '/Partners/TRUFROST.webp' },
+    { name: 'Western', logo: '/Partners/Western.png' },
 ];
 
 const PartnerSlider = () => {
@@ -64,15 +62,14 @@ const PartnerSlider = () => {
                     {allPartners.map((partner, index) => (
                         <div
                             key={index}
-                            className="flex-shrink-0 bg-white rounded-xl px-8 py-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-primary/20 transition-all duration-300 flex items-center justify-center"
-                            style={{ minWidth: '180px', height: '90px' }}
+                            className={`flex-shrink-0 rounded-xl px-8 py-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-primary/20 transition-all duration-300 flex items-center justify-center ${partner.bg ? '' : 'bg-white'}`}
+                            style={{ minWidth: '180px', height: '90px', backgroundColor: partner.bg || undefined }}
                         >
-                            <span
-                                className="text-xl font-extrabold tracking-wide transition-all duration-300"
-                                style={{ color: partner.color }}
-                            >
-                                {partner.name}
-                            </span>
+                            <img
+                                src={partner.logo}
+                                alt={partner.name}
+                                className="max-h-16 max-w-[140px] object-contain transition-all duration-300"
+                            />
                         </div>
                     ))}
                 </div>
@@ -82,3 +79,4 @@ const PartnerSlider = () => {
 };
 
 export default PartnerSlider;
+

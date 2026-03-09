@@ -71,7 +71,7 @@ const Hero = () => {
                                 {index === currentSlide && (
                                     <>
                                         <div className="inline-block bg-accent/90 text-secondary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 animate-fadeInUp">
-                                            Anna Kitchen Equipments
+                                            Anna's Kitchen Equipments
                                         </div>
                                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 font-heading" style={{ animationDelay: '0.2s' }}>
                                             {slide.title}
@@ -86,9 +86,9 @@ const Hero = () => {
                                             <a href="#contact" className="bg-gradient-to-r from-primary to-primary-dark text-white px-7 py-3.5 rounded-full font-semibold hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 text-sm">
                                                 Get in Touch
                                             </a>
-                                            <a href="#projects" className="border-2 border-white/40 text-white px-7 py-3.5 rounded-full font-semibold hover:bg-white hover:text-secondary transition-all duration-300 text-sm">
+                                            <Link to="/projects" className="border-2 border-white/40 text-white px-7 py-3.5 rounded-full font-semibold hover:bg-white hover:text-secondary transition-all duration-300 text-sm">
                                                 Our Projects
-                                            </a>
+                                            </Link>
                                         </div>
                                     </>
                                 )}

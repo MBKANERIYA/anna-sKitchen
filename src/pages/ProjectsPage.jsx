@@ -133,7 +133,7 @@ const ProjectsPage = () => {
                 {/* Project Count */}
                 <div className="text-center mt-8">
                     <p className="text-gray-400 text-sm">
-                        <span className="text-primary font-bold">{projectsList.length}</span> completed projects
+                        <span className="text-primary font-bold">100+</span> completed projects
                     </p>
                 </div>
             </div>
