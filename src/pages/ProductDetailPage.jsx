@@ -112,20 +112,21 @@ const ProductDetailPage = () => {
 
             {/* Quote Form */}
             <div className="max-w-4xl mx-auto px-4 py-10">
-                <form className="flex flex-wrap items-center gap-3 bg-white rounded-full shadow-lg border border-gray-100 p-2 pl-6">
+                <form className="flex flex-wrap items-center gap-3 bg-white rounded-3xl sm:rounded-full shadow-lg border border-gray-100 p-4 sm:p-2 pl-4 sm:pl-6 sm:ps-10">
                     <input type="text" placeholder="Name" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <input type="text" placeholder="Contact No." className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <input type="text" placeholder="Location" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <input type="text" placeholder="Your Budget" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <select className="text-sm py-2 px-3 outline-none bg-transparent text-gray-500">
-                        <option>-- Select Service --</option>
-                        {productCategories.map(cat => (
-                            <option key={cat.name}>{cat.name}</option>
-                        ))}
+                        <option>-- Select Range --</option>
+                        <option>Heating Range</option>
+                        <option>Refrigeration</option>
+                        <option>Bakery Products</option>
+                        <option>Processing</option>
                     </select>
                     <button
                         type="submit"
-                        className="bg-[#2A52BE] text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:opacity-90 transition-all duration-300"
+                        className="bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
                     >
                         Get Quote
                     </button>

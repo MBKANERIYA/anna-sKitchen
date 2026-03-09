@@ -60,13 +60,13 @@ const AboutPage = () => {
 
             {/* Quote Form */}
             <div className="max-w-4xl mx-auto px-4 py-10">
-                <form className="flex flex-wrap items-center gap-3 bg-white rounded-full shadow-lg border border-gray-100 p-2 pl-6">
+                <form className="flex flex-wrap items-center gap-3 bg-white rounded-3xl sm:rounded-full shadow-lg border border-gray-100 p-4 sm:p-2 pl-4 sm:pl-6 sm:ps-10">
                     <input type="text" placeholder="Name" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <input type="text" placeholder="Contact No." className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <input type="text" placeholder="Location" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <input type="text" placeholder="Your Budget" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
                     <select className="text-sm py-2 px-3 outline-none bg-transparent text-gray-500">
-                        <option>-- Select Ranfes --</option>
+                        <option>-- Select Range --</option>
                         <option>Heating Range</option>
                         <option>Refrigeration</option>
                         <option>Bakery Products</option>
