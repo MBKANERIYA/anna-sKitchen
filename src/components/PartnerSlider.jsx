@@ -5,8 +5,10 @@ const partnerLogos = [
     { name: 'Rational', logo: '/Partners/Rational.svg' },
     { name: 'Vitamix', logo: '/Partners/vitamix.jpg' },
     { name: 'Rockwell', logo: '/Partners/Rockwell.png' },
-    { name: 'TRUFROST', logo: '/Partners/TRUFROST.webp' },
+    { name: 'TRUFROST', logo: '/Partners/TRUFROST.png' },
     { name: 'Western', logo: '/Partners/Western.png' },
+    { name: 'EzyCoock', logo: '/Partners/EzyCoock.png' },
+    { name: 'Butler', logo: '/Partners/Butler.png' },
 ];
 
 const PartnerSlider = () => {
