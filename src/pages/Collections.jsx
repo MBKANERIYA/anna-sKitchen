@@ -3,15 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { fetchProducts } from '../api/products';
 
-const categoryImages = {
-    'bakery-products': '/images/b-0.png',
-    refrigeration: '/images/r-1.png',
-    'heating-range': '/images/h1.png',
-    'chat-and-fast-food-counter': '/images/c1.png',
-    'work-and-profession-table': '/images/w1.png',
-    'rack-trolley': '/images/t1.png',
-    processing: '/images/p1.png',
-};
+
 
 const ALLOWED_SLUGS = [
     'bakery-products',
@@ -121,11 +113,11 @@ const Collections = () => {
 
                                 <div className="relative">
                                     {/* Image container */}
-                                    <div className="relative overflow-hidden aspect-[4/3]">
+                                    <div className="relative overflow-hidden aspect-[4/3] bg-white rounded-t-2xl">
                                         <img
-                                            src={categoryImages[cat.slug] || (cat.products[0]?.image || '/images/logo.png')}
+                                            src={cat.products[0]?.image || '/images/logo.png'}
                                             alt={cat.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                                            className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-1000 ease-out"
                                         />
                                         {/* Multi-layer gradient overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent" />
