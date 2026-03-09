@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { FaProjectDiagram, FaUserFriends, FaWarehouse, FaCalendarAlt } from 'react-icons/fa';
 
 const stats = [
-    { icon: <FaProjectDiagram />, value: 100, suffix: '+', label: 'Total Projects' },
+    { icon: <FaProjectDiagram />, value: 1000, suffix: '+', label: 'Total Projects' },
     { icon: <FaUserFriends />, value: 700, suffix: '+', label: 'Total Family' },
     { icon: <FaWarehouse />, value: 350000, suffix: '', label: 'Infrastructure (Sq. Ft)' },
-    { icon: <FaCalendarAlt />, value: 20, suffix: '+', label: 'Experience (Years)' },
+    { icon: <FaCalendarAlt />, value: 14, suffix: '+', label: 'Experience (Years)' },
 ];
 
 const Counter = ({ end, suffix, duration = 2000 }) => {

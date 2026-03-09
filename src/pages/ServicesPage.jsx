@@ -82,7 +82,7 @@ const services = [
 
 const ServicesPage = () => {
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
             <div className="relative h-[50vh] min-h-[350px] overflow-hidden">
                 <div
@@ -226,7 +226,7 @@ const ServicesPage = () => {
                         { number: '500+', label: 'Happy Clients' },
                     ].map((stat, index) => (
                         <div key={index} className="p-6">
-                            <div className="text-4xl md:text-5xl font-black text-primary font-heading">{stat.number}</div>
+                            <div className="text-4xl md:text-5xl font-bold text-primary font-heading">{stat.number}</div>
                             <p className="text-gray-medium text-sm mt-2 font-medium">{stat.label}</p>
                         </div>
                     ))}

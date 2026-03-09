@@ -17,7 +17,7 @@ const productCategories = [
 
 const AboutPage = () => {
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
             <div className="relative h-[50vh] min-h-[350px] overflow-hidden">
                 <div
@@ -143,7 +143,7 @@ const AboutPage = () => {
                     Explore Anna Kitchen Products or Shop by Brand
                 </Link>
                 <span className="text-gray-300">|</span>
-                <a href="#" className="text-primary text-sm font-semibold hover:underline">
+                <a href="/Anna Kitchen Broucher.pdf" className="text-primary text-sm font-semibold hover:underline">
                     Download Brochure
                 </a>
             </div>

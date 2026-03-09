@@ -2,7 +2,7 @@ import { FaQuoteLeft } from 'react-icons/fa';
 
 const CompanyStory = () => {
     return (
-        <section id="story" className="section-padding bg-gold-lighter">
+        <section id="story" className="section-padding bg-gold-light">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     {/* Image side */}

@@ -196,7 +196,7 @@ const AdminDashboard = () => {
     return (
         <div className="min-h-screen bg-secondary flex">
             {/* Sidebar */}
-            <aside className="w-64 bg-black/40 backdrop-blur-md border-r border-white/5 text-white hidden md:block shadow-2xl relative z-10">
+            <aside className="w-64 bg-secondary/40 backdrop-blur-md border-r border-white/5 text-white hidden md:block shadow-2xl relative z-10">
                 <div className="p-6 border-b border-white/5">
                     <h2 className="text-2xl font-bold font-heading text-accent">Admin Panel</h2>
                     <p className="text-sm text-gray-400 mt-1">Anna's Kitchen</p>
@@ -268,14 +268,14 @@ const AdminDashboard = () => {
                     {activeTab === 'manage-products' && (
                         <div className="space-y-8 animate-fadeIn">
                             {/* Filters Bar */}
-                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 bg-black/20 p-4 rounded-xl border border-white/5">
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6 bg-secondary/20 p-4 rounded-xl border border-white/5">
                                 <div className="w-full md:w-1/2">
                                     <input
                                         type="text"
                                         placeholder="Search products by name..."
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white placeholder-gray-500 transition-all font-medium"
                                     />
                                 </div>
                                 <div className="flex items-center gap-3 w-full md:w-auto">
@@ -286,7 +286,7 @@ const AdminDashboard = () => {
                                         id="categoryFilter"
                                         value={filterCategory}
                                         onChange={(e) => setFilterCategory(e.target.value)}
-                                        className="w-full md:w-auto px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white font-medium uppercase transition-all"
+                                        className="w-full md:w-auto px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white font-medium uppercase transition-all"
                                     >
                                         {Object.entries(productsData).map(([key, data]) => (
                                             <option key={key} value={key}>
@@ -307,7 +307,7 @@ const AdminDashboard = () => {
                                     if (searchQuery && filteredProducts.length === 0) return null;
 
                                     return (
-                                        <div key={categorySlug} className="bg-black/20 p-6 rounded-2xl border border-white/5">
+                                        <div key={categorySlug} className="bg-secondary/20 p-6 rounded-2xl border border-white/5">
                                             <h3 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex justify-between items-center">
                                                 {categoryData.title}
                                                 <span className="text-xs font-bold text-accent bg-accent/10 border border-accent/20 px-3 py-1 rounded-full">{filteredProducts.length} Items</span>
@@ -336,7 +336,7 @@ const AdminDashboard = () => {
                                                                         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                                                                         onError={(e) => { e.target.src = '/images/logo.png' }}
                                                                     />
-                                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                                                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                                                                 </div>
                                                                 <div className="p-5 flex-1 flex flex-col justify-between">
                                                                     <h4 className="font-bold text-sm text-white line-clamp-2 group-hover:text-accent transition-colors" title={product.name}>
@@ -365,7 +365,7 @@ const AdminDashboard = () => {
                                     <select
                                         value={selectedCategory}
                                         onChange={(e) => setSelectedCategory(e.target.value)}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white font-medium uppercase transition-all"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white font-medium uppercase transition-all"
                                     >
                                         {Object.entries(productsData).map(([key, data]) => (
                                             <option key={key} value={key}>
@@ -405,7 +405,7 @@ const AdminDashboard = () => {
                                         required
                                         value={productName}
                                         onChange={(e) => setProductName(e.target.value)}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white placeholder-gray-500 transition-all font-medium"
                                         placeholder="e.g. Commercial Pizza Oven"
                                     />
                                 </div>
@@ -424,7 +424,7 @@ const AdminDashboard = () => {
                                             setProductImage(file);
                                             setImagePreview(file ? URL.createObjectURL(file) : '');
                                         }}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white transition-all font-medium file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent file:text-secondary hover:file:bg-white cursor-pointer"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white transition-all font-medium file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent file:text-secondary hover:file:bg-white cursor-pointer"
                                     />
                                     <p className="text-xs text-gray-400 mt-2">
                                         Select an image file from your device. It will be uploaded to Cloudinary safely.
@@ -455,7 +455,7 @@ const AdminDashboard = () => {
                                                 className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                                                 onError={(e) => { e.target.src = '/images/logo.png' }}
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                                         </div>
                                         <div className="p-5 flex-1 flex flex-col justify-between">
                                             <h4 className="font-bold text-sm text-white line-clamp-2 group-hover:text-accent transition-colors" title={productName || 'Product Preview'}>
@@ -490,7 +490,7 @@ const AdminDashboard = () => {
                                             >
                                                 <FaTrash className="text-xs" />
                                             </button>
-                                            <div className="aspect-video bg-black/50 relative overflow-hidden">
+                                            <div className="aspect-video bg-secondary/50 relative overflow-hidden">
                                                 <img
                                                     src={blog.image}
                                                     alt={blog.title}
@@ -523,7 +523,7 @@ const AdminDashboard = () => {
                                         required
                                         value={blogTitle}
                                         onChange={(e) => setBlogTitle(e.target.value)}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white placeholder-gray-500 transition-all font-medium"
                                         placeholder="e.g. 5 Tips for Choosing Commercial Ovens"
                                     />
                                 </div>
@@ -538,7 +538,7 @@ const AdminDashboard = () => {
                                             type="text"
                                             value={blogCategory}
                                             onChange={(e) => setBlogCategory(e.target.value)}
-                                            className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
+                                            className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white placeholder-gray-500 transition-all font-medium"
                                             placeholder="e.g. Guide, Review, News"
                                         />
                                     </div>
@@ -552,7 +552,7 @@ const AdminDashboard = () => {
                                             type="text"
                                             value={blogAuthor}
                                             onChange={(e) => setBlogAuthor(e.target.value)}
-                                            className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium"
+                                            className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white placeholder-gray-500 transition-all font-medium"
                                             placeholder="e.g. Admin, Chef John"
                                         />
                                     </div>
@@ -572,7 +572,7 @@ const AdminDashboard = () => {
                                             setBlogImage(file);
                                             setBlogImagePreview(file ? URL.createObjectURL(file) : '');
                                         }}
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white transition-all font-medium file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent file:text-secondary hover:file:bg-white cursor-pointer"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white transition-all font-medium file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-accent file:text-secondary hover:file:bg-white cursor-pointer"
                                     />
                                 </div>
 
@@ -586,7 +586,7 @@ const AdminDashboard = () => {
                                         value={blogContent}
                                         onChange={(e) => setBlogContent(e.target.value)}
                                         rows="6"
-                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-black/40 text-white placeholder-gray-500 transition-all font-medium resize-y"
+                                        className="w-full px-4 py-3 border border-white/10 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent bg-secondary/40 text-white placeholder-gray-500 transition-all font-medium resize-y"
                                         placeholder="Write your blog post content here..."
                                     ></textarea>
                                 </div>
@@ -609,7 +609,7 @@ const AdminDashboard = () => {
                                 <div className="max-w-md mx-auto">
                                     <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 shadow-lg group hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] relative">
                                         <div className="h-48 overflow-hidden relative">
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 duration-500 pointer-events-none"></div>
+                                            <div className="absolute inset-0 bg-secondary/20 group-hover:bg-transparent transition-colors z-10 duration-500 pointer-events-none"></div>
                                             <img
                                                 src={blogImagePreview || "/blog/download.jpg"}
                                                 alt={blogTitle || "Blog Subject"}

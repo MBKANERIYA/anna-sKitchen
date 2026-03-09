@@ -65,7 +65,7 @@ const Header = () => {
     }, [location]);
 
     return (
-        <header className={`sticky top-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-secondary shadow-xl shadow-black/20' : 'bg-secondary/95 backdrop-blur-md'}`}>
+        <header className={`sticky top-0 z-50 transition-all duration-500 ${isScrolled ? 'bg-secondary shadow-xl shadow-secondary/20' : 'bg-secondary/95 backdrop-blur-md'}`}>
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-18 lg:h-20">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2 group">
@@ -95,7 +95,7 @@ const Header = () => {
 
                             {/* Product categories dropdown */}
                             {link.dropdown && activeDropdown === link.name && (
-                                <div className="absolute top-full left-0 bg-white rounded-xl shadow-2xl shadow-black/10 border border-gray-100 py-2 min-w-56 animate-fadeIn z-50">
+                                <div className="absolute top-full left-0 bg-white rounded-xl shadow-2xl shadow-secondary/10 border border-gray-100 py-2 min-w-56 animate-fadeIn z-50">
                                     {link.dropdown.map((item) => (
                                         <Link
                                             key={item.slug}
@@ -118,7 +118,7 @@ const Header = () => {
 
                             {/* Simple dropdown (Media) */}
                             {link.dropdownSimple && activeDropdown === link.name && (
-                                <div className="absolute top-full left-0 bg-white rounded-xl shadow-2xl shadow-black/10 border border-gray-100 py-2 min-w-48 animate-fadeIn z-50">
+                                <div className="absolute top-full left-0 bg-white rounded-xl shadow-2xl shadow-secondary/10 border border-gray-100 py-2 min-w-48 animate-fadeIn z-50">
                                     {link.dropdownSimple.map((item) => (
                                         <a
                                             key={item}

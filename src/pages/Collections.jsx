@@ -114,7 +114,7 @@ const Collections = () => {
                             >
                                 {/* Card background */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-dark-light to-secondary rounded-2xl" />
-                                <div className="absolute inset-[1px] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] rounded-2xl" />
+                                <div className="absolute inset-[1px] bg-gradient-to-br from-secondary to-dark rounded-2xl" />
 
                                 {/* Gold border glow on hover */}
                                 <div className="absolute inset-0 rounded-2xl border border-white/5 group-hover:border-accent/30 transition-colors duration-700" />
@@ -128,11 +128,11 @@ const Collections = () => {
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
                                         />
                                         {/* Multi-layer gradient overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/40 to-transparent" />
-                                        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent" />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-secondary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                                         {/* Product count badge */}
-                                        <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 text-white/80 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                                        <div className="absolute top-4 right-4 bg-dark/40 backdrop-blur-md border border-white/10 text-white/80 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
                                             {cat.products.length} Products
                                         </div>
 

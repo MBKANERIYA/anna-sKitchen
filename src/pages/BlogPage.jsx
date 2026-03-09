@@ -27,7 +27,7 @@ const BlogPage = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-white flex items-center justify-center">
+            <div className="min-h-screen bg-gold-light flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-gray-500 text-lg">Loading blog...</p>
@@ -55,7 +55,7 @@ const BlogPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
             <div className="relative h-[45vh] min-h-[300px] overflow-hidden">
                 <img

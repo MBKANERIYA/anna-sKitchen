@@ -3,14 +3,14 @@
 @theme {
   --color-primary: #C5A04E;
   --color-primary-dark: #A8863A;
-  --color-secondary: #1C1C1C;
+  --color-secondary: #2C4E54;
   --color-accent: #D4AF37;
-  --color-dark: #111111;
-  --color-dark-light: #2A2A2A;
+  --color-dark: #27393B;
+  --color-dark-light: #4B6B70;
   --color-gray-light: #f8f9fa;
   --color-gray-medium: #6c757d;
-  --color-gold-light: #FAF5E8;
-  --color-gold-lighter: #FDF9F0;
+  --color-gold-light: #F4F5F4;
+  --color-gold-lighter: #F9F9F8;
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
 }

@@ -57,7 +57,7 @@ const ProductDetailPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
             <div className="relative h-[40vh] min-h-[300px] overflow-hidden">
                 <div
@@ -200,10 +200,10 @@ const ProductDetailPage = () => {
                     to="/collections"
                     className="text-secondary text-sm font-semibold hover:text-primary transition-colors"
                 >
-                    Explore Anna Kitchen Products or <span className="border-b border-black">Shop By Brand</span>
+                    Explore Anna Kitchen Products or <span className="border-b border-secondary">Shop By Brand</span>
                 </Link>
                 <span className="text-gray-300">|</span>
-                <a href="#" className="text-secondary text-sm font-semibold hover:text-primary transition-colors border-b border-black">
+                <a href="#" className="text-secondary text-sm font-semibold hover:text-primary transition-colors border-b border-secondary">
                     Download Brochure
                 </a>
             </div>

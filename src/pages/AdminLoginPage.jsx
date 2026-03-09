@@ -34,7 +34,7 @@ const AdminLoginPage = () => {
             </div>
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-                <div className="bg-white py-8 px-4 shadow-xl shadow-black/5 sm:rounded-2xl sm:px-10 border border-gray-100">
+                <div className="bg-white py-8 px-4 shadow-xl shadow-secondary/5 sm:rounded-2xl sm:px-10 border border-gray-100">
                     <form className="space-y-6" onSubmit={handleLogin}>
                         <div>
                             <label className="block text-sm font-medium text-secondary">

@@ -43,7 +43,7 @@ const BlogSection = () => {
                             <Link
                                 key={blog.slug}
                                 to={`/blog/${blog.slug}`}
-                                className="block cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-md shadow-black/5 border border-gray-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500"
+                                className="block cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-md shadow-secondary/5 border border-gray-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500"
                                 style={{ textDecoration: 'none' }}
                             >
                                 <div className="relative aspect-[16/10] overflow-hidden">

@@ -46,7 +46,7 @@ const CTA = () => {
             <div className="bg-gradient-to-b from-green-50/50 to-green-100/30 py-10 md:py-16 px-4 text-center">
                 <span className="text-secondary/60 text-sm font-bold uppercase tracking-[0.3em]">LET'S DISCUSS</span>
                 <div className="relative max-w-5xl mx-auto mt-6">
-                    <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-secondary leading-[0.9] tracking-tight font-heading uppercase">
+                    <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-secondary leading-[0.9] tracking-tight font-heading uppercase">
                         LET'S WORK
                     </h2>
                     <div className="flex items-center justify-center my-2 md:my-4">
@@ -58,7 +58,7 @@ const CTA = () => {
                             <span className="text-xs md:text-sm font-bold">Get in Touch</span>
                         </a>
                     </div>
-                    <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-secondary leading-[0.9] tracking-tight font-heading uppercase">
+                    <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-secondary leading-[0.9] tracking-tight font-heading uppercase">
                         TOGETHER
                     </h2>
                 </div>

@@ -24,7 +24,7 @@ const BlogsListPage = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-white flex items-center justify-center">
+            <div className="min-h-screen bg-gold-light flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-gray-500 text-lg">Loading blogs...</p>
@@ -34,7 +34,7 @@ const BlogsListPage = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
             <div className="relative h-[40vh] min-h-[300px] overflow-hidden">
                 <div
@@ -73,7 +73,7 @@ const BlogsListPage = () => {
                         <Link
                             key={blog.slug}
                             to={`/blog/${blog.slug}`}
-                            className="block cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-lg shadow-black/5 border border-gray-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 flex flex-col h-full"
+                            className="block cursor-pointer group bg-white rounded-2xl overflow-hidden shadow-lg shadow-secondary/5 border border-gray-100 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500 flex flex-col h-full"
                         >
                             <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
                                 <img
@@ -81,7 +81,7 @@ const BlogsListPage = () => {
                                     alt={blog.title}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 <span className="absolute top-4 left-4 bg-accent text-secondary text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
                                     {blog.category}
                                 </span>

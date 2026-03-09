@@ -78,7 +78,7 @@ const CollectionPage = () => {
                             <div className="inline-block bg-accent/10 border border-accent/20 text-accent px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
                                 {data.products.length} Products
                             </div>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white font-heading uppercase tracking-tight">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-heading uppercase tracking-tight">
                                 {data.title}
                             </h1>
                             <div className="flex items-center gap-3 mt-4">
@@ -139,13 +139,13 @@ const CollectionPage = () => {
                                 className="group relative rounded-2xl overflow-hidden transition-all duration-700 hover:-translate-y-2 block"
                             >
                                 {/* Card border / frame */}
-                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-white/5" />
-                                <div className="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-[#252525] to-[#1a1a1a]" />
-                                <div className="absolute inset-0 rounded-2xl border border-white/5 group-hover:border-accent/20 transition-colors duration-700" />
+                                <div className="absolute inset-0 rounded-2xl bg-white" />
+                                <div className="absolute inset-[1px] rounded-2xl bg-white" />
+                                <div className="absolute inset-0 rounded-2xl border border-gray-100 group-hover:border-primary/20 transition-colors duration-700 shadow-sm group-hover:shadow-md" />
 
-                                <div className="relative">
+                                <div className="relative z-10">
                                     {/* Product Image */}
-                                    <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#2a2a2a] to-[#1e1e1e] p-6 flex items-center justify-center relative">
+                                    <div className="aspect-[4/3] overflow-hidden bg-white p-6 flex items-center justify-center relative rounded-t-2xl">
                                         <img
                                             src={product.image}
                                             alt={product.name}
@@ -155,22 +155,22 @@ const CollectionPage = () => {
                                         <div className="absolute inset-0 bg-gradient-radial from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
                                         {/* Index badge */}
-                                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-black/30 backdrop-blur-md border border-white/10 flex items-center justify-center">
-                                            <span className="text-[10px] font-bold text-white/50">{String(index + 1).padStart(2, '0')}</span>
+                                        <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-gold-light border border-gray-200 flex items-center justify-center shadow-sm">
+                                            <span className="text-[10px] font-bold text-primary">{String(index + 1).padStart(2, '0')}</span>
                                         </div>
                                     </div>
 
                                     {/* Product Info */}
-                                    <div className="p-5 border-t border-white/5">
-                                        <h3 className="font-bold text-white text-sm md:text-base font-heading tracking-wide group-hover:text-accent transition-colors duration-500">
+                                    <div className="p-5 border-t border-gray-100 bg-white rounded-b-2xl">
+                                        <h3 className="font-bold text-secondary text-sm md:text-base font-heading tracking-wide group-hover:text-primary transition-colors duration-500">
                                             {product.name}
                                         </h3>
                                         <div className="flex items-center justify-between mt-4">
-                                            <span className="text-accent/50 text-xs font-semibold uppercase tracking-wider group-hover:text-accent/80 transition-colors">
+                                            <span className="text-secondary/70 text-xs font-semibold uppercase tracking-wider group-hover:text-primary transition-colors">
                                                 View Details
                                             </span>
-                                            <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-accent/30 group-hover:bg-accent/10 transition-all duration-500">
-                                                <FaArrowRight className="text-[10px] text-white/30 group-hover:text-accent -rotate-45 transition-colors duration-500" />
+                                            <div className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-primary/30 group-hover:bg-primary/5 transition-all duration-500">
+                                                <FaArrowRight className="text-[10px] text-secondary/40 group-hover:text-primary -rotate-45 transition-colors duration-500" />
                                             </div>
                                         </div>
                                     </div>

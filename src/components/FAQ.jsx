@@ -32,7 +32,7 @@ const FAQ = () => {
     };
 
     return (
-        <section className="section-padding bg-gold-lighter">
+        <section className="section-padding bg-gold-light">
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-14">
                     <span className="text-primary text-sm font-bold uppercase tracking-widest">FAQ</span>

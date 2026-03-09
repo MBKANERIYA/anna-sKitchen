@@ -32,7 +32,7 @@ const projectsList = [
 const ProjectsPage = () => {
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
             <div className="relative h-[50vh] min-h-[350px] overflow-hidden">
                 <div
