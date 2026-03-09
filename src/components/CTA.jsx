@@ -2,9 +2,9 @@ import { FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaArrowRight } from 
 
 const socials = [
     { icon: FaFacebookF, name: 'Follow On Facebook', href: '#' },
-    { icon: FaLinkedinIn, name: 'Join On Linkedin', href: '#' },
+    // { icon: FaLinkedinIn, name: 'Join On Linkedin', href: '#' },
     { icon: FaInstagram, name: 'Follow On Instagram', href: 'https://www.instagram.com/annas_kitchen_equipments' },
-    { icon: FaYoutube, name: 'Follow On Youtube', href: '#' },
+    // { icon: FaYoutube, name: 'Follow On Youtube', href: '#' },
 ];
 
 const CTA = () => {
