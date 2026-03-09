@@ -15,7 +15,7 @@ const slides = [
         gradient: 'from-secondary/90 via-secondary/70 to-transparent',
     },
     {
-        title: '25+ Years of Excellence',
+        title: '14+ Years of Excellence',
         subtitle: 'Trusted by India\'s Top Brands',
         description: 'Ramada, Radisson, Taj, Bikanerwala — trusted by India\'s premier hospitality brands.',
         gradient: 'from-secondary/90 via-secondary/70 to-transparent',

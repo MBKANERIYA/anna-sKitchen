@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaArrowUp } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebookF, FaInstagram, FaArrowUp } from 'react-icons/fa';
 import { fetchProducts } from '../api/products';
 
 const quickLinks = [
@@ -119,7 +119,7 @@ const Footer = () => {
                             Follow us on social media for updates, culinary insights, and new product announcements.
                         </p>
                         <div className="flex gap-2">
-                            {[FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn].map((Icon, i) => (
+                            {[FaFacebookF, FaInstagram].map((Icon, i) => (
                                 <a
                                     key={i}
                                     href={i === 1 ? 'https://www.instagram.com/annas_kitchen_equipments' : '#'}

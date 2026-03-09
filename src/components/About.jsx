@@ -66,7 +66,7 @@ const About = () => {
                 </div>
 
                 <div className="text-center mt-10">
-                    <a href="#story" className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-4 transition-all duration-300 group">
+                    <a href="/about" className="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-4 transition-all duration-300 group">
                         Read More
                         <FaArrowRight className="text-xs group-hover:translate-x-1 transition-transform" />
                     </a>

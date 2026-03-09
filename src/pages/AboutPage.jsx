@@ -88,7 +88,7 @@ const AboutPage = () => {
                 </h2>
                 <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
                     <p>
-                        <strong className="text-secondary">Anna's Kitchen Equipment's</strong> is a premier provider of high-quality commercial and industrial kitchen equipment, dedicated to delivering innovative, durable, and cost-effective solutions for the food service industry with 13 years of industry expertise, we have established ourselves as a trusted name in manufacturing and supplying a comprehensive range of kitchen machinery for hotels, restaurants, canteens, hospitals, and more.
+                        <strong className="text-secondary">Anna's Kitchen Equipment's</strong> is a premier provider of high-quality commercial and industrial kitchen equipment, dedicated to delivering innovative, durable, and cost-effective solutions for the food service industry with 14+ years of industry expertise, we have established ourselves as a trusted name in manufacturing and supplying a comprehensive range of kitchen machinery for hotels, restaurants, canteens, hospitals, and more.
                     </p>
                 </div>
 

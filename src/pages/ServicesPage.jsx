@@ -220,8 +220,8 @@ const ServicesPage = () => {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                     {[
-                        { number: '25+', label: 'Years Experience' },
-                        { number: '100+', label: 'Projects Completed' },
+                        { number: '14+', label: 'Years Experience' },
+                        { number: '1000+', label: 'Projects Completed' },
                         { number: '16+', label: 'States Covered' },
                         { number: '500+', label: 'Happy Clients' },
                     ].map((stat, index) => (

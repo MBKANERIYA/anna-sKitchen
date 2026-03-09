@@ -16,7 +16,7 @@ const CompanyStory = () => {
                         </div>
                         {/* Accent box */}
                         <div className="absolute -bottom-6 -right-6 bg-gradient-to-br from-primary to-primary-dark text-white p-6 rounded-2xl shadow-xl hidden md:block">
-                            <div className="text-3xl font-bold font-heading">25+</div>
+                            <div className="text-3xl font-bold font-heading">14+</div>
                             <div className="text-sm text-white/80">Years of Excellence</div>
                         </div>
                         {/* Quote decoration */}
@@ -36,7 +36,7 @@ const CompanyStory = () => {
                                 We are one of the leading brands specializing in the manufacturing, service, and installation of commercial kitchen setups in Surat.
                             </p>
                             <p>
-                                With a legacy spanning over <span className="text-primary font-semibold">25 years</span> in the Indian hospitality industry, the Anna Kitchen family has been synonymous with quality, innovation, and trust. Building on decades of expertise, Anna Kitchen Equipments was officially established in 2007 and is headquartered in Gujarat, India.
+                                With a legacy spanning over <span className="text-primary font-semibold">14 years</span> in the Indian hospitality industry, the Anna Kitchen family has been synonymous with quality, innovation, and trust. Building on decades of expertise, Anna Kitchen Equipments was officially established in 2007 and is headquartered in Gujarat, India.
                             </p>
                             <p>
                                 Today, we are proud to be one of India's foremost manufacturers and suppliers of <span className="text-primary font-semibold">commercial kitchen equipment</span>, refrigeration and bakery equipment in Surat.
