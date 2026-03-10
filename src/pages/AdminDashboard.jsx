@@ -320,26 +320,26 @@ const AdminDashboard = () => {
                                                     {filteredProducts.map((product, index) => {
                                                         const originalIndex = categoryData.products.findIndex(p => p.name === product.name);
                                                         return (
-                                                            <div key={originalIndex} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden flex flex-col group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-accent/50 transition-all duration-300 relative">
+                                                            <div key={originalIndex} className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-3 flex flex-col group hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] hover:border-accent/40 transition-all duration-500 relative">
                                                                 <button
                                                                     onClick={() => handleDeleteProduct(categorySlug, originalIndex)}
-                                                                    className="absolute top-3 right-3 bg-red-500/80 hover:bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
+                                                                    className="absolute top-5 right-5 bg-red-500/90 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-lg backdrop-blur-sm"
                                                                     title="Delete Product"
                                                                 >
                                                                     <FaTrash className="text-xs" />
                                                                 </button>
 
-                                                                <div className="aspect-[4/3] bg-white p-4 relative flex items-center justify-center">
+                                                                <div className="aspect-[4/3] bg-white rounded-xl p-4 relative flex items-center justify-center overflow-hidden border border-white/20 shadow-inner">
                                                                     <img
                                                                         src={product.image}
                                                                         alt={product.name}
-                                                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                                                                        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-md"
                                                                         onError={(e) => { e.target.src = '/images/logo.png' }}
                                                                     />
-                                                                    <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl"></div>
                                                                 </div>
-                                                                <div className="p-5 flex-1 flex flex-col justify-between">
-                                                                    <h4 className="font-bold text-sm text-white line-clamp-2 group-hover:text-accent transition-colors" title={product.name}>
+                                                                <div className="pt-4 pb-2 px-2 flex-1 flex flex-col justify-between text-center">
+                                                                    <h4 className="font-bold text-sm md:text-base text-white/90 line-clamp-2 group-hover:text-accent tracking-wide transition-colors" title={product.name}>
                                                                         {product.name}
                                                                     </h4>
                                                                 </div>
@@ -447,18 +447,18 @@ const AdminDashboard = () => {
                                     Live Preview
                                 </h3>
                                 <div className="max-w-[280px] mx-auto">
-                                    <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden flex flex-col group hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-accent/50 transition-all duration-300 relative">
-                                        <div className="aspect-[4/3] bg-white p-4 relative flex items-center justify-center">
+                                    <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-3 flex flex-col group hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] hover:border-accent/40 transition-all duration-500 relative">
+                                        <div className="aspect-[4/3] bg-white rounded-xl p-4 relative flex items-center justify-center overflow-hidden border border-white/20 shadow-inner">
                                             <img
                                                 src={imagePreview || '/images/logo.png'}
                                                 alt={productName || 'Product Preview'}
-                                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 drop-shadow-md"
                                                 onError={(e) => { e.target.src = '/images/logo.png' }}
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl"></div>
                                         </div>
-                                        <div className="p-5 flex-1 flex flex-col justify-between">
-                                            <h4 className="font-bold text-sm text-white line-clamp-2 group-hover:text-accent transition-colors" title={productName || 'Product Preview'}>
+                                        <div className="pt-4 pb-2 px-2 flex-1 flex flex-col justify-between text-center">
+                                            <h4 className="font-bold text-sm md:text-base text-white/90 line-clamp-2 group-hover:text-accent tracking-wide transition-colors" title={productName || 'Product Preview'}>
                                                 {productName || 'Enter a product name'}
                                             </h4>
                                         </div>
@@ -482,26 +482,30 @@ const AdminDashboard = () => {
                             ) : (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                                     {blogsData.map((blog) => (
-                                        <div key={blog.slug} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden flex flex-col group relative">
+                                        <div key={blog.slug} className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-3 flex flex-col group hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] hover:border-accent/40 transition-all duration-500 relative">
                                             <button
                                                 onClick={() => handleDeleteBlog(blog.slug)}
-                                                className="absolute top-3 right-3 bg-red-500/80 hover:bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
+                                                className="absolute top-5 right-5 bg-red-500/90 hover:bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 shadow-lg backdrop-blur-sm"
                                                 title="Delete Blog"
                                             >
                                                 <FaTrash className="text-xs" />
                                             </button>
-                                            <div className="aspect-video bg-secondary/50 relative overflow-hidden">
+                                            <div className="aspect-video bg-secondary/50 relative overflow-hidden rounded-xl border border-white/10">
                                                 <img
                                                     src={blog.image}
                                                     alt={blog.title}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                     onError={(e) => { e.target.src = '/images/logo.png' }}
                                                 />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl"></div>
                                             </div>
-                                            <div className="p-4 flex-1">
-                                                <span className="text-xs text-accent font-bold uppercase mb-1 block">{blog.category}</span>
-                                                <h4 className="font-bold text-white text-md line-clamp-2">{blog.title}</h4>
-                                                <p className="text-xs text-gray-400 mt-2">{blog.date} • {blog.author}</p>
+                                            <div className="pt-4 pb-2 px-2 flex-1 flex flex-col">
+                                                <span className="text-[10px] text-accent font-bold uppercase tracking-wider mb-2 block">{blog.category}</span>
+                                                <h4 className="font-bold text-white/90 text-sm md:text-md line-clamp-2 group-hover:text-accent transition-colors duration-300 leading-snug">{blog.title}</h4>
+                                                <div className="mt-auto pt-4 flex items-center justify-between text-xs text-white/50 font-medium">
+                                                    <span>{blog.date}</span>
+                                                    <span>{blog.author}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}

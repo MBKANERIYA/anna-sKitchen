@@ -23,12 +23,12 @@ const serviceImages = [
     {
         src: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80',
         alt: 'Equipment Installation',
-        span: 'col-span-1 row-span-2',
+        span: 'col-span-1 row-span-1',
     },
     {
         src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
         alt: 'Commercial Kitchen Setup',
-        span: 'col-span-2 row-span-1',
+        span: 'col-span-1 row-span-1',
     },
     {
         src: 'https://images.unsplash.com/photo-1571867424488-4565932edb41?w=600&q=80',
