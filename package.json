@@ -14,7 +14,8 @@
     "pretest": "vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "admin:password": "node scripts/hash-password.mjs"
+    "admin:password": "node scripts/hash-password.mjs",
+    "db:fix-image-paths": "node scripts/migrate-image-paths.mjs"
   },
   "dependencies": {
     "cloudinary": "^2.9.0",

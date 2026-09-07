@@ -89,3 +89,29 @@ input.
 "Get Quote" bars were extracted into one `QuoteBar` component. See [forms.md](forms.md).
 **Regression Test**: `src/lib/whatsapp.test.js` — 14 tests over message building, encoding
 and the popup-blocker fallback. Browser-verified on `/contact` and `/services`.
+
+## ISSUE-007: Database image paths were not migrated with the asset rename
+**Status**: Open — fix written, awaiting a run against production
+**Severity**: High
+**Discovered**: 2026-09-07
+**Symptom**: On the live site every product image is broken (alt text only). Locally
+everything looked fine.
+**Root Cause**: The 2026-09-07 asset optimisation renamed every file in `public/` to
+slugified WebP and rewrote the source, including the bundled fallback in
+`src/data/productsData.js`. **MongoDB stores its own copy of those paths**, and those were
+never migrated. The live API therefore returns
+`/images/Bakery Product/Bengali Sweet Counter.png` for files that now only exist as
+`/images/bakery-product/bengali-sweet-counter.webp`.
+
+It looked fine locally because no `MONGODB_URI` was configured, so the front-end fell back
+to the bundled catalogue — which *had* been updated. The fallback masked the bug: the only
+environment where it appears is one with a working database.
+**Workaround**: None. Every database-backed image 404s.
+**Fix**: `scripts/migrate-image-paths.mjs` rewrites the stored paths using
+`scripts/asset-map.json`. Dry run by default; `--apply` writes a JSON snapshot of both
+collections to `backups/` first. Cloudinary URLs are left untouched.
+Run: put `MONGODB_URI` in a local `.env`, then `npm run db:fix-image-paths`, check the
+output, then re-run with `-- --apply`.
+**Validated**: against the live API — all 61 stored paths map cleanly, 0 unmapped, and the
+target files already return `200 image/webp` from the deployed server.
+**Regression Test**: None automated (needs a live database). The dry run is the check.

@@ -49,6 +49,12 @@ node scripts/audit-assets.mjs              # expect "MISSING: 0"
 overwrite the backup. Move the existing backup aside first, deliberately.
 
 ## Known gotchas
+- **The database holds its own copy of every product and blog image path.** Renaming
+  anything in `public/` therefore needs a matching database migration — see
+  `scripts/migrate-image-paths.mjs` and ISSUE-007. This was missed during the original
+  rename and broke every image on the live site. It is invisible locally, because with no
+  `MONGODB_URI` the front-end falls back to the bundled catalogue, which does get updated.
+  **Always check the live API, not just the local build, after touching asset names.**
 - **The optimiser is not idempotent.** Running it against an already-optimised `public/`
   re-encodes WebP that is already WebP, losing a little quality each pass. Always source
   from `public-original/`.

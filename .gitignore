@@ -35,3 +35,6 @@ public-optimized
 
 # Deployment upload bundles (regenerate with the manifest in knowledge-base/deployment.md)
 *.zip
+
+# Database snapshots taken before migrations — real data, never commit
+backups/
