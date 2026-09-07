@@ -1,0 +1,55 @@
+# Testing
+
+## Test Frameworks in Use
+- **Vitest 5** — the only test runner. Introduced 2026-09-07; there were no tests before.
+- No browser/DOM testing library yet. Everything currently under test is Node-side, so
+  `environment: 'node'` is enough (see `vitest.config.js`). Adding component tests will
+  mean adding `jsdom` and `@testing-library/react`.
+
+## How to Run Tests
+| Command             | What it runs                                            |
+|---------------------|---------------------------------------------------------|
+| `npm test`          | `vite build` (via `pretest`), then the full suite       |
+| `npm run test:watch`| Vitest in watch mode — **does not build first**         |
+| `npx vitest run <file>` | A single file                                       |
+
+`pretest` runs `vite build` because `server/server.test.js` asserts against the real
+`dist/` output — hashed asset names, cache headers, the SPA shell. Without a build those
+tests would skip and quietly prove nothing.
+
+In watch mode, run `npm run build` once yourself first.
+
+## Test File Conventions
+Tests sit next to the code they cover:
+| File                          | Covers                                    |
+|-------------------------------|-------------------------------------------|
+| `scripts/slugify.test.mjs`    | Asset filename rules                      |
+| `src/api/http.test.js`        | `fetchWithTimeout` read-timeout helper    |
+| `server/server.test.js`       | Express hosting contract                  |
+
+Discovery globs are in `vitest.config.js`. Note `server/**/*.test.js` is ESM while the rest
+of `server/` is CommonJS — `eslint.config.js` has a matching exception.
+
+## What Must Be Tested
+- Anything affecting **URLs or filenames** of static assets. A silent rename is a
+  site-wide 404 and the build will not catch it.
+- The **hosting contract** in `server/index.js`: route ordering, the SPA fallback, and the
+  three cache-header classes. These are what break on a new host.
+- **Degraded-mode behaviour.** The site must render without a database.
+- When ISSUE-001 is fixed, every mutating API route needs an allowed case and a denied case.
+
+## Mocks, Fakes, and Fixtures
+- No database in tests. `server/server.test.js` deletes `MONGODB_URI` before importing the
+  app, so Mongoose never connects and `/api/health` reports `db: "disconnected"`.
+- The app is imported and started on port `0` (ephemeral). Nothing binds a fixed port, so
+  the suite cannot collide with a running dev server.
+- `src/api/http.test.js` stubs `globalThis.fetch` with `vi.stubGlobal` and drives the real
+  `AbortController`. No network access.
+
+## Known Flaky Tests
+None — keep it that way.
+
+## Not Covered
+Deliberately, as of 2026-09-07: React components and pages, the Cloudinary upload path, the
+Mongoose models and routes against a real database, and the live Hostinger environment.
+The most valuable next tests are the auth cases from ISSUE-001.

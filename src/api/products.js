@@ -2,13 +2,14 @@ const API_BASE = '/api';
 
 // Default fallback data import
 import defaultProductsData from '../data/productsData';
+import { fetchWithTimeout } from './http';
 
 /**
  * Fetch all products from the API, falls back to static data if API is unavailable
  */
 export const fetchProducts = async () => {
     try {
-        const res = await fetch(`${API_BASE}/products`);
+        const res = await fetchWithTimeout(`${API_BASE}/products`);
         if (!res.ok) {
             const errorText = await res.text();
             throw new Error(`API error (${res.status}): ${errorText || res.statusText}`);
