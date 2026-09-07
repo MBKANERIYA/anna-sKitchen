@@ -87,6 +87,30 @@ If there is no Node.js option, check hPanel -> Websites -> Add Website -> **Depl
 - The legacy `vercel.json` and `api/` shim are still present and harmless. If Hostinger's
   autodetect misreads the project, `vercel.json` is the first thing to remove.
 
+## Deploying by zip upload
+Git import is the recommended path, but hPanel's **Upload your files** accepts a `.zip`.
+`hostinger-upload.zip` in the project root is that bundle: 150 files, 23.3 MB, with
+`package.json` at the **zip root** (not nested inside a folder) — Hostinger then runs
+`npm install` and the build command itself.
+
+It contains `index.html`, `package.json`, `package-lock.json`, `vite.config.js`,
+`server.js`, `.env.example`, and the `server/`, `src/` and `public/` trees. It deliberately
+omits `node_modules/`, `dist/`, `public-original/`, `knowledge-base/`, `scripts/`,
+`deploy/`, the Vercel shim, and all test files.
+
+The zip is gitignored and regenerated on demand — it is build output, not source.
+
+> ⚠️ When regenerating, exclude top-level directories **by top-level path, not by name**.
+> Excluding the name `api` at any depth also removes `src/api/`, which holds the front-end
+> fetch layer. That produced a zip that installed fine and then failed the build with
+> `Could not resolve "../api/products"`. The manifest now asserts that every required
+> module is present before writing.
+
+Always verify a regenerated bundle by extracting it to a short path (Windows `MAX_PATH`
+bites — one blog filename is 83 characters) and running `npm install && npm run build &&
+node server.js` against it. A bundle that merely zips without error is not a bundle that
+deploys.
+
 ## Static-only fallback (no Node.js on the plan)
 Upload the **contents of `dist/`** to `public_html`, then rename
 `deploy/htaccess-static-fallback` to `.htaccess` beside it. That file supplies SPA routing,
