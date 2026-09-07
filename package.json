@@ -13,7 +13,8 @@
     "optimize:images": "node scripts/optimize-assets.mjs",
     "pretest": "vite build",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "admin:password": "node scripts/hash-password.mjs"
   },
   "dependencies": {
     "cloudinary": "^2.9.0",

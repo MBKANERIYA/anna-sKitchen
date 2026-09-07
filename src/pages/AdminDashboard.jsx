@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { fetchProducts, addProduct, deleteProduct } from '../api/products';
 import { fetchBlogs, addBlog, deleteBlog } from '../api/blogs';
+import { logout } from '../api/auth';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 const AdminDashboard = () => {
@@ -28,6 +29,19 @@ const AdminDashboard = () => {
     const [blogContent, setBlogContent] = useState('');
 
     const [successMessage, setSuccessMessage] = useState('');
+    const [loggingOut, setLoggingOut] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        setLoggingOut(true);
+        try {
+            await logout();
+        } finally {
+            // Even if the request fails, send the admin to the login page; the
+            // guard re-checks the session there anyway.
+            navigate('/admin/login', { replace: true });
+        }
+    };
 
     // Fetch data from API on mount
     useEffect(() => {
@@ -219,6 +233,13 @@ const AdminDashboard = () => {
                         className={`w-full flex items-center px-4 py-3 rounded-xl transition-all duration-300 ${activeTab === 'blogs' ? 'bg-accent/10 text-accent border border-accent/20 shadow-[0_0_15px_rgba(212,175,55,0.1)]' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
                     >
                         <span className="font-medium">Manage Blogs</span>
+                    </button>
+                    <button
+                        onClick={handleLogout}
+                        disabled={loggingOut}
+                        className="flex items-center justify-center px-4 py-3 rounded-xl text-gray-400 hover:bg-red-500/10 hover:text-red-300 transition-all duration-300 absolute bottom-20 w-[calc(100%-2rem)] border border-white/10 hover:border-red-400/30 disabled:opacity-60"
+                    >
+                        <span className="font-medium">{loggingOut ? 'Signing out…' : 'Sign out'}</span>
                     </button>
                     <Link to="/" className="flex items-center justify-center px-4 py-3 rounded-xl text-gray-400 hover:bg-white/10 hover:text-white transition-all duration-300 mt-auto absolute bottom-6 w-[calc(100%-2rem)] border border-white/10 group">
                         <span className="font-medium group-hover:-translate-x-1 transition-transform">←</span>

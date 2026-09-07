@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { login } from '../api/auth';
 
 const AdminLoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleLogin = (e) => {
+    // Credentials are verified by the server. Nothing about them is knowable
+    // from the bundle, which is the whole point of this change.
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setError('');
+        setSubmitting(true);
 
-        if (username === 'admin' && password === 'admin123') {
-            navigate('/admin/dashboard');
-        } else {
-            alert('Invalid credentials. Please try again.');
+        try {
+            await login(username, password);
+            // Return the admin to wherever the guard intercepted them.
+            navigate(location.state?.from || '/admin/dashboard', { replace: true });
+        } catch (err) {
+            setError(
+                err.status === 429
+                    ? `Too many attempts. Try again in ${Math.ceil((err.retryAfter ?? 900) / 60)} minutes.`
+                    : err.status === 503
+                        ? 'Admin login is not configured on this server yet.'
+                        : err.message || 'Invalid username or password.'
+            );
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -36,6 +54,14 @@ const AdminLoginPage = () => {
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
                 <div className="bg-white py-8 px-4 shadow-xl shadow-secondary/5 sm:rounded-2xl sm:px-10 border border-gray-100">
                     <form className="space-y-6" onSubmit={handleLogin}>
+                        {error && (
+                            <div
+                                role="alert"
+                                className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+                            >
+                                {error}
+                            </div>
+                        )}
                         <div>
                             <label className="block text-sm font-medium text-secondary">
                                 Username
@@ -74,32 +100,19 @@ const AdminLoginPage = () => {
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <input
-                                    id="remember-me"
-                                    name="remember-me"
-                                    type="checkbox"
-                                    className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-                                />
-                                <label className="ml-2 block text-sm text-gray-medium">
-                                    Remember me
-                                </label>
-                            </div>
-
-                            <div className="text-sm">
-                                <a href="#" className="font-medium text-primary hover:text-primary-dark transition-colors">
-                                    Forgot password?
-                                </a>
-                            </div>
-                        </div>
+                        <p className="text-xs text-gray-medium">
+                            Sessions last 8 hours. Lost the password? Regenerate it with
+                            <code className="mx-1 rounded bg-gray-100 px-1 py-0.5">npm run admin:password</code>
+                            and update the server environment variables.
+                        </p>
 
                         <div>
                             <button
                                 type="submit"
-                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-gradient-to-r from-primary to-accent hover:from-primary-dark hover:to-primary transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                disabled={submitting}
+                                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-gradient-to-r from-primary to-accent hover:from-primary-dark hover:to-primary transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
                             >
-                                Sign in to Dashboard
+                                {submitting ? 'Signing in…' : 'Sign in to Dashboard'}
                             </button>
                         </div>
                     </form>

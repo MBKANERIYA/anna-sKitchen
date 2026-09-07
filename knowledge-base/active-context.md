@@ -1,44 +1,47 @@
 ## Current Status
 **Last Updated**: 2026-09-07
-**Last Agent Session**: Migrated the app from Vercel staging to Hostinger Node.js hosting,
-optimised `public/` from 128.4 MB to 23.6 MB, introduced Vitest, and opened the migration PR.
-**Test Suite Status**: 21/21 passing. `npm run lint` reports 6 pre-existing problems
+**Last Agent Session**: Replaced the fake admin login with server-side authentication
+(ISSUE-001, resolved) and audited the public contact forms (ISSUE-006, open).
+**Test Suite Status**: 60/60 passing. `npm run lint` reports 6 pre-existing problems
 (ISSUE-004). Production build succeeds.
 
 ## In Progress
-- **PR #1 is open and awaiting merge**: https://github.com/MBKANERIYA/anna-sKitchen/pull/1
-  (branch `hostinger-migration` -> `main`). Hostinger's Git import deploys the **default
-  branch**, so nothing reaches production until this is merged into `main`.
+Nothing in flight.
 
 ## Blocked On
-Nothing. ISSUE-005 is resolved — hPanel reaches **Deploy Your Web App** with Git import, so
-the plan does support Node.js apps.
+- **ISSUE-006 needs a product decision**, not engineering: where should contact and quote
+  submissions go? Email (SMTP or a transactional provider), a MongoDB collection shown in
+  the admin dashboard, or a third-party form service. Every option is a couple of hours;
+  the choice is the blocker.
 
 ## Decisions Needed
-- **ISSUE-001 (Critical) — the admin area has no real authentication.** Credentials are
-  hardcoded in client-side JS, `/admin/dashboard` has no route guard, and every mutating
-  API route is unauthenticated, so anyone can delete the catalogue with curl. Flagged, not
-  fixed: it is a security redesign, not hosting work. Resolve before the site is public.
+- Destination for contact form submissions (above).
 - Whether to compress the 16.7 MB brochure PDF (ISSUE-003) — 70% of `public/`.
-- Whether to drop `vercel.json` and `api/`. They are harmless, but if Hostinger's framework
-  autodetect misreads the project as a static Vite app, `vercel.json` is the first suspect.
+- Whether to drop `vercel.json` and `api/` now that Hostinger is the deployment target.
+
+## Deploying this change — REQUIRED
+The admin API **fails closed**. After deploying, the dashboard will refuse every login
+until these exist in hPanel → your app → Environment variables:
+
+1. Run `npm run admin:password` locally.
+2. Copy `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH` and `SESSION_SECRET` into hPanel.
+3. Restart the app.
+4. Check `/api/auth/me` returns 401 (not 503). 503 means the variables are missing.
+
+The public site is unaffected either way — only the admin area depends on them.
 
 ## Next Steps (for the next agent session)
-1. Merge PR #1 into `main`.
-2. hPanel -> Deploy Web App -> import `MBKANERIYA/anna-sKitchen`. Set Node 20 or 22,
-   build `npm run build`, **entry file `server.js`**, output `dist`. If the preset is
-   detected as a static React/Vite app, change it — this is a *server* app, or `/api/*`
-   will not exist.
-3. Set the four environment variables from `.env.example` in hPanel. Do not set `PORT`.
-4. Allow-list the Hostinger server IP in MongoDB Atlas -> Network Access.
-5. Check `https://<domain>/api/health` — expect `"db":"connected"`.
-   `"disconnected"` means step 4 is incomplete.
-6. Address ISSUE-001 before announcing the site.
+1. Set the three admin variables in hPanel (above) — otherwise the dashboard is unusable.
+2. Decide where contact submissions go, then fix ISSUE-006. Extract the "Get Quote" bar
+   into one shared component instead of fixing the same markup in five files.
+3. Consider ISSUE-002 (three duplicate `/api/products` fetches per page).
 
 ## Do Not Touch
 - `public/` — generated output. Edit originals in `public-original/` and re-run the
   pipeline (assets.md).
 - `public-original/` — the only copy of the pre-optimisation originals (~129 MB), gitignored
-  and therefore **not on GitHub**. It exists on this machine only; back it up before wiping.
+  and therefore **not on GitHub**. It exists on this machine only; back it up.
 - The `listen()` in `server.js` — do not add another one in `server/index.js`.
+- Route order in `server/index.js` — anything registered after the `GET *` SPA fallback is
+  unreachable, and `requireAuth` must stay ahead of multer on upload routes.
 - `src/data/productsData.js` / `blogsData.js` — load-bearing fallback data, not dead code.

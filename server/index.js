@@ -9,8 +9,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const compression = require('compression');
+const cookieParser = require('cookie-parser');
 const productRoutes = require('./routes/products');
 const blogRoutes = require('./routes/blogs');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const DIST = path.join(__dirname, '..', 'dist');
@@ -20,10 +22,17 @@ app.set('trust proxy', 1); // Hostinger terminates TLS in front of the Node proc
 
 // Middleware
 app.use(compression());
-app.use(cors());
+// The SPA and API share an origin, so the browser never makes a cross-origin
+// call. Reflecting arbitrary origins would only help someone else's page talk
+// to this API, so CORS is opened up for local development only.
+if (process.env.NODE_ENV !== 'production') {
+    app.use(cors({ origin: true, credentials: true }));
+}
 app.use(express.json());
+app.use(cookieParser());
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/blogs', blogRoutes);
 

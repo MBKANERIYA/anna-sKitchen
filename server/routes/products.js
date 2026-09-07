@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const { v2: cloudinary } = require('cloudinary');
 const Category = require('../models/Product');
+const { requireAuth } = require('../auth');
 
 // Configure Cloudinary
 cloudinary.config({
@@ -44,7 +45,7 @@ router.get('/', async (req, res) => {
 
 
 // POST /api/products - Add a product to a category (or create new category)
-router.post('/', upload.single('productImage'), async (req, res) => {
+router.post('/', requireAuth, upload.single('productImage'), async (req, res) => {
     try {
         const { categorySlug, categoryTitle, categoryDescription, productName } = req.body;
 
@@ -105,7 +106,7 @@ router.post('/', upload.single('productImage'), async (req, res) => {
 
 
 // DELETE /api/products/:categorySlug/:productIndex - Delete a product from a category
-router.delete('/:categorySlug/:productIndex', async (req, res) => {
+router.delete('/:categorySlug/:productIndex', requireAuth, async (req, res) => {
     try {
         const { categorySlug, productIndex } = req.params;
         const index = parseInt(productIndex, 10);

@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const { v2: cloudinary } = require('cloudinary');
 const Blog = require('../models/Blog');
+const { requireAuth } = require('../auth');
 
 // Configure Cloudinary (it uses the same credentials initialized in products route, but we'll re-ensure config)
 cloudinary.config({
@@ -41,7 +42,7 @@ router.get('/:slug', async (req, res) => {
 });
 
 // POST /api/blogs - Add a new blog with image upload
-router.post('/', upload.single('blogImage'), async (req, res) => {
+router.post('/', requireAuth, upload.single('blogImage'), async (req, res) => {
     try {
         const { slug, title, date, category, author, content } = req.body;
         let blogImage = req.body.blogImage;
@@ -97,7 +98,7 @@ router.post('/', upload.single('blogImage'), async (req, res) => {
 });
 
 // DELETE /api/blogs/:slug - Delete a blog post
-router.delete('/:slug', async (req, res) => {
+router.delete('/:slug', requireAuth, async (req, res) => {
     try {
         const deletedBlog = await Blog.findOneAndDelete({ slug: req.params.slug });
         if (!deletedBlog) {

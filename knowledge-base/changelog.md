@@ -1,5 +1,51 @@
 # Changelog
 
+## 2026-09-07 — Real admin authentication
+**What**: Replaced the fake client-side login with server-side sessions and locked down
+every mutating API route.
+**Why**: ISSUE-001. Credentials (`admin`/`admin123`) were compared in browser JavaScript
+and shipped in the bundle, `/admin/dashboard` had no guard, and the mutating API routes had
+no authentication at all — anyone could delete the whole catalogue with curl.
+**Impact**: The admin area now requires three new environment variables. **Without them the
+admin API fails closed (503) and nobody can log in**; the public site is unaffected.
+Generate them with `npm run admin:password`.
+**Files Changed**:
+- `server/auth.js`, `server/routes/auth.js` — **new**
+- `server/routes/products.js`, `server/routes/blogs.js` — `requireAuth` on POST and DELETE
+- `server/index.js` — cookie-parser, auth routes, CORS narrowed to development only
+- `src/api/auth.js`, `src/components/RequireAuth.jsx` — **new**
+- `src/pages/AdminLoginPage.jsx` — real login call, inline errors, submitting state
+- `src/pages/AdminDashboard.jsx` — sign-out control
+- `src/App.jsx` — dashboard wrapped in `RequireAuth`
+- `scripts/hash-password.mjs` — **new**
+- `.env.example`, `package.json` (`admin:password`, `cookie-parser`)
+- `knowledge-base/security.md` — **new**
+**Tests**: 39 new (60 total, all passing) across `server/auth.test.js` and
+`server/auth-routes.test.js`. Lint unchanged at 6 pre-existing problems.
+**Commit**: see `git log`
+
+- Session is an HMAC-signed token in an httpOnly, SameSite=Strict cookie. httpOnly means an
+  XSS bug cannot read it; SameSite=Strict blocks CSRF without a separate token.
+- Fixed algorithm, never read from the token, so JWT algorithm-confusion does not apply.
+- Password stored only as a scrypt hash; plaintext exists nowhere.
+- `requireAuth` is registered before multer, so an unauthenticated upload is refused before
+  the file is buffered into memory.
+- Fails closed: a missing or too-short `SESSION_SECRET` refuses writes rather than allowing
+  them. There is an explicit regression test asserting 503 and not 200.
+- Login returns an identical message for a wrong username and a wrong password, and runs the
+  password check either way, so neither text nor timing leaks which was wrong.
+- Verified manually in a browser: direct navigation to `/admin/dashboard` redirects to
+  login; the old `admin123` is rejected; a correct login reaches the dashboard with the
+  cookie invisible to `document.cookie`; sign-out returns to login and stays there.
+- Removed the decorative "Remember me" checkbox and dead "Forgot password?" link — a
+  password-reset link that goes nowhere is worse than none.
+
+### Also found, not fixed
+Every contact and quote form on the public site is inert (ISSUE-006): six forms with no
+submit handler, whose submit buttons trigger a native page reload that discards the
+enquiry. Reported rather than fixed because it needs a decision on where submissions
+should go.
+
 ## 2026-09-07 — Migrate from Vercel to Hostinger + optimise assets
 **What**: Restructured the app to run as a single Hostinger Node.js process serving both
 the API and the SPA, cut `public/` from 128.4 MB to 23.6 MB, and added a test suite.

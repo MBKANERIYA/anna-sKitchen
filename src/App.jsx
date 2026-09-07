@@ -15,6 +15,7 @@ import BlogsListPage from './pages/BlogsListPage';
 import ContactPage from './pages/ContactPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminDashboard from './pages/AdminDashboard';
+import RequireAuth from './components/RequireAuth';
 
 // Layout for the main website
 const MainLayout = () => {
@@ -50,7 +51,14 @@ function App() {
 
           {/* Admin Routes (No Header/Footer) */}
           <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <RequireAuth>
+                <AdminDashboard />
+              </RequireAuth>
+            }
+          />
         </Routes>
       </div>
     </Router>
