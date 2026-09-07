@@ -47,7 +47,16 @@ of `server/` is CommonJS — `eslint.config.js` has a matching exception.
   `AbortController`. No network access.
 
 ## Known Flaky Tests
-None — keep it that way.
+None outstanding — keep it that way.
+
+Observed once on 2026-09-07: a run during heavy filesystem contention (a `git checkout`
+plus `git pull` rewriting ~200 files while Vite rebuilt `dist/`) reported one failed file
+and **8 silently skipped** tests. The static-hosting block used
+`describe.skipIf(!existsSync(DIST))`, so a missing `dist/` hid the entire hosting contract
+behind a mostly-green summary. It now fails with an actionable message instead of skipping.
+Three consecutive clean runs passed 21/21 afterwards.
+
+The lesson generalises: never gate a test block on a condition that can silently disable it.
 
 ## Not Covered
 Deliberately, as of 2026-09-07: React components and pages, the Cloudinary upload path, the

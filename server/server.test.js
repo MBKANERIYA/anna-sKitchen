@@ -47,7 +47,19 @@ describe('API routing', () => {
     });
 });
 
-describe.skipIf(!existsSync(DIST))('static hosting', () => {
+describe('static hosting', () => {
+    // Fail rather than skip. `npm test` builds via pretest, so a missing dist/ means
+    // something is wrong — and silently skipping these eight assertions once already
+    // hid the whole hosting contract during a run that looked mostly green.
+    beforeAll(() => {
+        if (!existsSync(DIST)) {
+            throw new Error(
+                'dist/ is missing — run "npm run build" first. ' +
+                '"npm test" does this automatically via the pretest script.'
+            );
+        }
+    });
+
     it('serves the SPA shell at the root', async () => {
         const res = await fetch(`${base}/`);
         expect(res.status).toBe(200);
