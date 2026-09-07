@@ -32,3 +32,6 @@ server/.env
 # deliberately not committed or deployed. See knowledge-base/assets.md.
 public-original
 public-optimized
+
+# Deployment upload bundles (regenerate with the manifest in knowledge-base/deployment.md)
+*.zip
