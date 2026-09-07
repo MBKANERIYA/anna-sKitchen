@@ -1,5 +1,38 @@
 # Changelog
 
+## 2026-09-07 — Make the public forms actually send (ISSUE-006)
+**What**: All six public forms now hand off to WhatsApp with the enquiry pre-filled. The
+five duplicated "Get Quote" bars became one `QuoteBar` component.
+**Why**: Every form on the site was dead markup — no submit handler, so clicking reloaded
+the page and discarded the enquiry while appearing to succeed. Every lead submitted through
+them was lost.
+**Impact**: Enquiries now reach the business. Nothing is stored server-side by design, so a
+customer who does not press send in WhatsApp is still not recorded.
+**Files Changed**:
+- `src/lib/whatsapp.js`, `src/lib/whatsapp.test.js`, `src/components/QuoteBar.jsx` — **new**
+- `src/pages/AboutPage.jsx`, `ProjectsPage.jsx`, `ServicesPage.jsx`,
+  `ProductDetailPage.jsx` — inline quote bar replaced with `<QuoteBar />`
+- `src/pages/ContactPage.jsx` — quote bar replaced; long form made controlled and wired
+- `knowledge-base/forms.md` — **new**
+**Tests**: 14 new (74 total, all passing). Lint unchanged at 6 pre-existing problems.
+**Commit**: see `git log`
+
+- Chosen destination was WhatsApp, which matches how the business already operates — the
+  site links to `wa.me` in several places already.
+- The five quote bars were confirmed byte-identical by checksum before extraction, so the
+  refactor changed no rendering.
+- Name and contact number are required; other fields are optional and omitted from the
+  message when blank.
+- An untouched `<select>` still reports its placeholder option, so `-- Select Range --` is
+  explicitly treated as empty rather than sent as a real choice.
+- Values are percent-encoded, so `&`, `#` and `?` in a customer's text cannot break the URL.
+- If a popup blocker stops the new tab, it falls back to the current tab — silently doing
+  nothing would recreate the very bug being fixed.
+- Removed the decorative "✓ Enter Own Code" label, which did nothing, and relabelled the
+  button "Send on WhatsApp" so the behaviour is not a surprise.
+- Browser-verified on `/contact` and `/services`: correct message produced, empty submit
+  blocked with an inline error, and no page reload.
+
 ## 2026-09-07 — Real admin authentication
 **What**: Replaced the fake client-side login with server-side sessions and locked down
 every mutating API route.

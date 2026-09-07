@@ -69,6 +69,7 @@ knowledge-base/        This documentation
 | README.md          | Always first                                  |
 | deployment.md      | Before deploying or changing hosting          |
 | security.md        | Before touching the admin area or API auth    |
+| forms.md           | Before changing any public form or enquiry flow |
 | architecture.md    | Before touching how the app is wired          |
 | decisions.md       | Before undoing something that looks odd       |
 | known-issues.md    | Before debugging, and before going public     |

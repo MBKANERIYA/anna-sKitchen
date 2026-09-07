@@ -1,21 +1,18 @@
 ## Current Status
 **Last Updated**: 2026-09-07
 **Last Agent Session**: Replaced the fake admin login with server-side authentication
-(ISSUE-001, resolved) and audited the public contact forms (ISSUE-006, open).
-**Test Suite Status**: 60/60 passing. `npm run lint` reports 6 pre-existing problems
+(ISSUE-001) and made all six public forms send enquiries to WhatsApp (ISSUE-006). Both
+resolved.
+**Test Suite Status**: 74/74 passing. `npm run lint` reports 6 pre-existing problems
 (ISSUE-004). Production build succeeds.
 
 ## In Progress
 Nothing in flight.
 
 ## Blocked On
-- **ISSUE-006 needs a product decision**, not engineering: where should contact and quote
-  submissions go? Email (SMTP or a transactional provider), a MongoDB collection shown in
-  the admin dashboard, or a third-party form service. Every option is a couple of hours;
-  the choice is the blocker.
+Nothing.
 
 ## Decisions Needed
-- Destination for contact form submissions (above).
 - Whether to compress the 16.7 MB brochure PDF (ISSUE-003) — 70% of `public/`.
 - Whether to drop `vercel.json` and `api/` now that Hostinger is the deployment target.
 
@@ -32,9 +29,7 @@ The public site is unaffected either way — only the admin area depends on them
 
 ## Next Steps (for the next agent session)
 1. Set the three admin variables in hPanel (above) — otherwise the dashboard is unusable.
-2. Decide where contact submissions go, then fix ISSUE-006. Extract the "Get Quote" bar
-   into one shared component instead of fixing the same markup in five files.
-3. Consider ISSUE-002 (three duplicate `/api/products` fetches per page).
+2. Consider ISSUE-002 (three duplicate `/api/products` fetches per page).
 
 ## Do Not Touch
 - `public/` — generated output. Edit originals in `public-original/` and re-run the

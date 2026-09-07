@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaPhone, FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
 import CTA from '../components/CTA';
 import ClientSlider from '../components/ClientSlider';
 import PartnerSlider from '../components/PartnerSlider';
+import QuoteBar from '../components/QuoteBar';
+import { openWhatsApp } from '../lib/whatsapp';
 
 const productCategories = [
     { name: 'Bakery Products', slug: 'bakery-products' },
@@ -15,6 +18,39 @@ const productCategories = [
 ];
 
 const ContactPage = () => {
+    const EMPTY_ENQUIRY = { name: '', mobile: '', email: '', budget: '', address: '', message: '' };
+    const [enquiry, setEnquiry] = useState(EMPTY_ENQUIRY);
+    const [enquiryError, setEnquiryError] = useState('');
+
+    const updateEnquiry = (field) => (e) => {
+        setEnquiry((prev) => ({ ...prev, [field]: e.target.value }));
+        if (enquiryError) setEnquiryError('');
+    };
+
+    // Hands off to WhatsApp with the details filled in. Previously this form had
+    // no submit handler at all, so the browser reloaded the page and the enquiry
+    // was lost without anyone being told.
+    const handleEnquirySubmit = (e) => {
+        e.preventDefault();
+
+        if (!enquiry.name.trim() || !enquiry.mobile.trim()) {
+            setEnquiryError('Please enter your name and mobile number.');
+            return;
+        }
+
+        openWhatsApp({
+            intro: 'Hi Anna Kitchen, I have an enquiry.',
+            fields: {
+                Name: enquiry.name,
+                Mobile: enquiry.mobile,
+                Email: enquiry.email,
+                Budget: enquiry.budget,
+                Address: enquiry.address,
+            },
+            note: enquiry.message,
+        });
+    };
+
     return (
         <div className="min-h-screen bg-gold-light">
             {/* Hero Banner */}
@@ -59,25 +95,7 @@ const ContactPage = () => {
 
             {/* Quote Form */}
             <div className="max-w-4xl mx-auto px-4 py-10">
-                <form className="flex flex-wrap items-center gap-3 bg-white rounded-3xl sm:rounded-full shadow-lg border border-gray-100 p-4 sm:p-2 pl-4 sm:pl-6 sm:ps-10">
-                    <input type="text" placeholder="Name" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
-                    <input type="text" placeholder="Contact No." className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
-                    <input type="text" placeholder="Location" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
-                    <input type="text" placeholder="Your Budget" className="flex-1 min-w-[100px] text-sm py-2 px-3 outline-none bg-transparent border-r border-gray-200" />
-                    <select className="text-sm py-2 px-3 outline-none bg-transparent text-gray-500">
-                        <option>-- Select Range --</option>
-                        <option>Heating Range</option>
-                        <option>Refrigeration</option>
-                        <option>Bakery Products</option>
-                        <option>Processing</option>
-                    </select>
-                    <button
-                        type="submit"
-                        className="bg-gradient-to-r from-primary to-primary-dark text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
-                    >
-                        Get Quote
-                    </button>
-                </form>
+                <QuoteBar />
             </div>
 
             {/* Contact Section */}
@@ -148,16 +166,22 @@ const ContactPage = () => {
                                 Contact us today!
                             </h3>
 
-                            <form className="space-y-4">
+                            <form className="space-y-4" onSubmit={handleEnquirySubmit}>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <input
                                         type="text"
                                         placeholder="Your Name"
+                                        aria-label="Your name"
+                                        value={enquiry.name}
+                                        onChange={updateEnquiry('name')}
                                         className="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/40 outline-none focus:border-accent/50 transition-colors"
                                     />
                                     <input
                                         type="tel"
                                         placeholder="Your Mobile"
+                                        aria-label="Your mobile"
+                                        value={enquiry.mobile}
+                                        onChange={updateEnquiry('mobile')}
                                         className="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/40 outline-none focus:border-accent/50 transition-colors"
                                     />
                                 </div>
@@ -165,33 +189,47 @@ const ContactPage = () => {
                                     <input
                                         type="email"
                                         placeholder="Your Email"
+                                        aria-label="Your email"
+                                        value={enquiry.email}
+                                        onChange={updateEnquiry('email')}
                                         className="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/40 outline-none focus:border-accent/50 transition-colors"
                                     />
                                     <input
                                         type="text"
                                         placeholder="Your Budget"
+                                        aria-label="Your budget"
+                                        value={enquiry.budget}
+                                        onChange={updateEnquiry('budget')}
                                         className="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/40 outline-none focus:border-accent/50 transition-colors"
                                     />
                                 </div>
                                 <input
                                     type="text"
                                     placeholder="Full Address"
+                                    aria-label="Full address"
+                                    value={enquiry.address}
+                                    onChange={updateEnquiry('address')}
                                     className="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/40 outline-none focus:border-accent/50 transition-colors"
                                 />
                                 <textarea
                                     placeholder="Message"
                                     rows="4"
+                                    aria-label="Message"
+                                    value={enquiry.message}
+                                    onChange={updateEnquiry('message')}
                                     className="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder:text-white/40 outline-none focus:border-accent/50 transition-colors resize-none"
                                 />
                                 <div className="flex items-center justify-between gap-4 pt-2">
-                                    <div className="flex items-center gap-2 text-white/30 text-xs">
-                                        <span>✓ Enter Own Code</span>
+                                    <div className="flex items-center gap-2 text-white/40 text-xs">
+                                        {enquiryError
+                                            ? <span role="alert" className="text-red-300">{enquiryError}</span>
+                                            : <span>Opens WhatsApp with your details</span>}
                                     </div>
                                     <button
                                         type="submit"
                                         className="bg-gradient-to-r from-primary to-accent text-secondary px-8 py-3 rounded-lg font-bold text-sm hover:shadow-xl hover:shadow-accent/20 transition-all duration-300"
                                     >
-                                        Submit Message
+                                        Send on WhatsApp
                                     </button>
                                 </div>
                             </form>

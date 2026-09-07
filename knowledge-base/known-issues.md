@@ -72,22 +72,20 @@ static fallback is retained but is not the deployment route.
 **Regression Test**: N/A — verify each deploy with `GET /api/health`.
 
 ## ISSUE-006: Every contact and quote form on the public site is inert
-**Status**: Open
+**Status**: Resolved
 **Severity**: High
 **Discovered**: 2026-09-07
-**Symptom**: A visitor fills in a contact or "Get Quote" form, clicks submit, and the page
-reloads with the fields cleared. Nothing is sent, nothing is stored, and no one is
-notified. To the visitor it looks like the enquiry was submitted.
-**Root Cause**: Six `<form>` elements have no `onSubmit`, no `action`, no `method`, and no
-React state on their inputs, but their buttons are `type="submit"`. The browser therefore
-performs a native GET submission to the current URL, which reloads the SPA and discards the
-input. Affected: `ContactPage.jsx` (two forms), and the "Get Quote" bar duplicated in
-`AboutPage.jsx`, `ProductDetailPage.jsx`, `ProjectsPage.jsx` and `ServicesPage.jsx`.
-**Workaround**: The phone number, WhatsApp link and `mailto:` address elsewhere on the page
-do work, so enquiries can still arrive by those routes.
-**Fix**: Not done — needs a decision on where submissions should go (email via an SMTP or
-transactional provider, a MongoDB collection surfaced in the admin dashboard, or a
-third-party form service). The five duplicated quote bars should become one shared
-component rather than being fixed five times.
-**Regression Test**: None yet. When fixed, assert a submission reaches its destination and
-that a failed submission surfaces an error rather than silently clearing the form.
+**Resolved**: 2026-09-07
+**Symptom**: A visitor filled in a contact or "Get Quote" form, clicked submit, and the
+page reloaded with the fields cleared. Nothing was sent, nothing stored, nobody notified —
+but to the visitor it looked like the enquiry had gone through. Every enquiry made this way
+was silently lost.
+**Root Cause**: Six `<form>` elements had no `onSubmit`, no `action`, no `method` and no
+React state on their inputs, but their buttons were `type="submit"`. The browser therefore
+performed a native GET submission to the current URL, reloading the SPA and discarding the
+input.
+**Workaround**: The phone, WhatsApp and `mailto:` links elsewhere on the page did work.
+**Fix**: All six now hand off to WhatsApp with the details pre-filled. The five identical
+"Get Quote" bars were extracted into one `QuoteBar` component. See [forms.md](forms.md).
+**Regression Test**: `src/lib/whatsapp.test.js` — 14 tests over message building, encoding
+and the popup-blocker fallback. Browser-verified on `/contact` and `/services`.
