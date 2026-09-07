@@ -54,8 +54,9 @@ knowledge-base/        This documentation
 ## Quick Facts
 | Key          | Value                                            |
 |--------------|--------------------------------------------------|
-| Repo         | Not a git repository as of 2026-09-07            |
+| Repo         | github.com/MBKANERIYA/anna-sKitchen (default `main`) |
 | Prod URL     | Not yet deployed                                 |
+| Deploy       | Hostinger -> Deploy Web App -> import Git repo    |
 | Previous     | Vercel (dev staging)                             |
 | DB           | MongoDB Atlas                                    |
 | Test Command | `npm test` (builds first, then runs Vitest)      |

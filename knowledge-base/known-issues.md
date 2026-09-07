@@ -60,15 +60,17 @@ config now lints Node files correctly, so these 6 are genuine.
 **Regression Test**: `npm run lint`.
 
 ## ISSUE-005: Hosting plan may not support Node.js apps
-**Status**: Open
+**Status**: Resolved
 **Severity**: High
 **Discovered**: 2026-09-07
-**Symptom**: hPanel may offer no Node.js application option.
-**Root Cause**: Hostinger documents in-panel Node.js apps for **Business** and **Cloud**
-plans. Premium is not listed. The owner described the plan as "Premium Node.js hosting",
-which does not match a documented tier name.
-**Workaround**: Deploy the static fallback — `dist/` into `public_html` plus
-`deploy/htaccess-static-fallback` renamed to `.htaccess`. The site renders fully from its
-bundled catalogue; only the admin dashboard's save function is lost.
-**Fix**: Confirm the plan in hPanel. Upgrade to Business if a live API is required.
-**Regression Test**: N/A — verify with `GET /api/health` after deploying.
+**Resolved**: 2026-09-07
+**Symptom**: Hostinger documents in-panel Node.js apps for Business and Cloud plans, not
+Premium, and the plan was described as "Premium Node.js hosting".
+**Root Cause**: Documentation tier names did not match how the plan was described.
+**Workaround**: The static fallback (`deploy/htaccess-static-fallback`) was prepared in case
+Node.js was unavailable.
+**Fix**: Confirmed directly in hPanel — the account reaches
+**Deploy Your Web App**, offering "Import your Git repository" (recommended) and file
+upload. Node.js app hosting is available; the Node path in deployment.md applies. The
+static fallback is retained but is not the deployment route.
+**Regression Test**: N/A — verify each deploy with `GET /api/health`.

@@ -33,7 +33,7 @@ model have no Hostinger equivalent. Hostinger runs a long-lived Node process ins
 **Tests**: Vitest introduced (21 tests, all passing) across `scripts/slugify.test.mjs`,
 `src/api/http.test.js`, `server/server.test.js`. `npm run lint` goes from 66 problems to 6,
 all pre-existing (ISSUE-004). Production build succeeds.
-**Commit**: n/a — not a git repository
+**Commit**: `79ec518` on branch `hostinger-migration`; PR #1 into `main`
 
 - Images alone went from ~111 MB to ~6.9 MB (-94%); largest single file 3.9 MB -> 183 KB.
 - Bundle split from one 403 KB chunk into react 192 KB / app 153 KB / router 36 KB /
