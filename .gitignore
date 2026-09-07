@@ -23,3 +23,12 @@ server/.env
 *.njsproj
 *.sln
 *.sw?
+
+# Environment
+.env
+.env.local
+
+# Original, pre-optimisation assets. ~129 MB — kept locally as a backup,
+# deliberately not committed or deployed. See knowledge-base/assets.md.
+public-original
+public-optimized

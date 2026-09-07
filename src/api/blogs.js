@@ -2,13 +2,14 @@ const API_BASE = '/api';
 
 // Default fallback data import
 import defaultBlogsData from '../data/blogsData';
+import { fetchWithTimeout } from './http';
 
 /**
  * Fetch all blogs from the API, falls back to static data if API is unavailable
  */
 export const fetchBlogs = async () => {
     try {
-        const res = await fetch(`${API_BASE}/blogs`);
+        const res = await fetchWithTimeout(`${API_BASE}/blogs`);
         if (!res.ok) {
             const errorText = await res.text();
             throw new Error(`API error (${res.status}): ${errorText || res.statusText}`);
@@ -26,7 +27,7 @@ export const fetchBlogs = async () => {
  */
 export const fetchBlogBySlug = async (slug) => {
     try {
-        const res = await fetch(`${API_BASE}/blogs/${slug}`);
+        const res = await fetchWithTimeout(`${API_BASE}/blogs/${slug}`);
         if (!res.ok) {
             throw new Error('Blog not found');
         }

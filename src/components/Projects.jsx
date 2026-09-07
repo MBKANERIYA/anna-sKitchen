@@ -15,12 +15,12 @@ const projects = [
     {
         name: 'Amul',
         category: 'Dairy',
-        image: '/images/amul.jpg',
+        image: '/images/amul.webp',
     },
     {
         name: 'Palsana',
         category: 'restaurant',
-        image: '/images/palsana.jpg',
+        image: '/images/palsana.webp',
     },
 ];
 

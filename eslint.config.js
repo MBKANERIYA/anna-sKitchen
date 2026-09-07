@@ -5,9 +5,11 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'public-original', 'public-optimized']),
+
+  // Browser / React source
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['src/**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
@@ -24,6 +26,39 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+    },
+  },
+
+  // Express API — CommonJS, Node globals.
+  {
+    files: ['server/**/*.js', 'api/**/*.js'],
+    ignores: ['server/**/*.test.js'],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: { ecmaVersion: 'latest', sourceType: 'commonjs' },
+    },
+    rules: {
+      // Express identifies error handlers by arity, so the trailing `next`
+      // has to stay even when the handler never calls it.
+      'no-unused-vars': ['error', { argsIgnorePattern: '^(next|_)' }],
+    },
+  },
+
+  // Root-level Node tooling — ESM, Node globals.
+  {
+    files: [
+      'server.js',
+      'vite.config.js',
+      'vitest.config.js',
+      'eslint.config.js',
+      'scripts/**/*.mjs',
+      'server/**/*.test.js',
+    ],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
     },
   },
 ])

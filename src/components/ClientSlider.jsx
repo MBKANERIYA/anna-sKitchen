@@ -1,20 +1,20 @@
 import { useEffect, useRef } from 'react';
 
 const clientLogos = [
-    { name: 'Mahal', image: '/clients/Logo.webp' },
-    { name: 'Bar Stock Exchange', image: '/clients/unnamed (2).jpg' },
-    { name: 'SLMG Beverages', image: '/clients/logo (1).png' },
-    { name: 'Amul', image: '/clients/Amul_official_logo.svg' },
-    { name: 'Haldiram', image: '/clients/Haldiram_Logo-9GN.png' },
-    { name: 'Atul Bakery', image: '/clients/Atul-bakery-Logo-new.svg' },
-    { name: 'Subway', image: '/clients/subway-logo.e7b602efa8e0c7316077.webp' },
-    { name: 'Sumul Dairy', image: '/clients/sumul_dairy_logo.jpg' },
-    { name: 'OYO', image: '/clients/download (1).png' },
-    { name: 'Client', image: '/clients/487824977_122233010432025315_6264959669572713421_n.jpg' },
-    // { name: 'Client', image: '/clients/WhatsApp Image 2026-02-26 at 17.33.43.jpeg' },
-    { name: 'Client', image: '/clients/WhatsApp Image 2026-02-26 at 17.33.43 (1).jpeg' },
-    { name: 'Client', image: '/clients/unnamed.jpg' },
-    { name: 'IRCTC', image: '/clients/IRCTC.png' },
+    { name: 'Mahal', image: '/clients/logo.webp' },
+    { name: 'Bar Stock Exchange', image: '/clients/unnamed-2.webp' },
+    { name: 'SLMG Beverages', image: '/clients/logo-1.webp' },
+    { name: 'Amul', image: '/clients/amul-official-logo.svg' },
+    { name: 'Haldiram', image: '/clients/haldiram-logo-9gn.webp' },
+    { name: 'Atul Bakery', image: '/clients/atul-bakery-logo-new.svg' },
+    { name: 'Subway', image: '/clients/subway-logo-e7b602efa8e0c7316077.webp' },
+    { name: 'Sumul Dairy', image: '/clients/sumul-dairy-logo.webp' },
+    { name: 'OYO', image: '/clients/download-1.webp' },
+    { name: 'Client', image: '/clients/487824977-122233010432025315-6264959669572713421-n.webp' },
+    // { name: 'Client', image: '/clients/whatsapp-image-2026-02-26-at-17-33-43.webp' },
+    { name: 'Client', image: '/clients/whatsapp-image-2026-02-26-at-17-33-43-1.webp' },
+    { name: 'Client', image: '/clients/unnamed.webp' },
+    { name: 'IRCTC', image: '/clients/irctc.webp' },
 ];
 
 const ClientSlider = () => {

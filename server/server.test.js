@@ -1,0 +1,93 @@
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { existsSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// These cover the behaviour Hostinger depends on: one Node process serving both
+// the API and the built SPA, with correct routing and cache headers.
+
+const here = dirname(fileURLToPath(import.meta.url));
+const DIST = join(here, '..', 'dist');
+
+let server;
+let base;
+
+beforeAll(async () => {
+    // No database in tests — the API must still boot and answer.
+    delete process.env.MONGODB_URI;
+    const { default: app } = await import('./index.js');
+    await new Promise((resolve) => {
+        server = app.listen(0, resolve);
+    });
+    base = `http://127.0.0.1:${server.address().port}`;
+});
+
+afterAll(async () => {
+    if (server) await new Promise((resolve) => server.close(resolve));
+});
+
+describe('API routing', () => {
+    it('answers the health check without a database', async () => {
+        const res = await fetch(`${base}/api/health`);
+        expect(res.status).toBe(200);
+
+        const body = await res.json();
+        expect(body.status).toBe('ok');
+        expect(body.db).toBe('disconnected');
+    });
+
+    it('returns JSON 404 for an unknown API route, not the SPA shell', async () => {
+        // The SPA fallback would otherwise answer /api/typo with index.html and a
+        // 200, turning a broken endpoint into a silent blank page.
+        const res = await fetch(`${base}/api/definitely-not-real`);
+
+        expect(res.status).toBe(404);
+        expect(res.headers.get('content-type')).toMatch(/application\/json/);
+        await expect(res.json()).resolves.toMatchObject({ error: expect.any(String) });
+    });
+});
+
+describe.skipIf(!existsSync(DIST))('static hosting', () => {
+    it('serves the SPA shell at the root', async () => {
+        const res = await fetch(`${base}/`);
+        expect(res.status).toBe(200);
+        expect(res.headers.get('content-type')).toMatch(/text\/html/);
+        await expect(res.text()).resolves.toContain('<div id="root">');
+    });
+
+    it('serves the SPA shell for a deep client-side route', async () => {
+        // A hard refresh on a nested URL must not 404 — this is the single most
+        // common SPA hosting failure.
+        const res = await fetch(`${base}/collections/heating-range/Dosa%20Bhatti`);
+        expect(res.status).toBe(200);
+        expect(res.headers.get('content-type')).toMatch(/text\/html/);
+    });
+
+    it('marks the app shell no-cache so new deploys are picked up', async () => {
+        const res = await fetch(`${base}/`);
+        expect(res.headers.get('cache-control')).toBe('no-cache');
+    });
+
+    it('marks fingerprinted assets immutable', async () => {
+        const html = await (await fetch(`${base}/`)).text();
+        const assetPath = html.match(/\/assets\/[A-Za-z0-9._-]+\.js/)?.[0];
+        expect(assetPath, 'built index.html should reference a hashed JS asset').toBeTruthy();
+
+        const res = await fetch(base + assetPath);
+        expect(res.status).toBe(200);
+        expect(res.headers.get('cache-control')).toBe('public, max-age=31536000, immutable');
+    });
+
+    it('serves public/ assets with a shorter TTL, since their names are stable', async () => {
+        const res = await fetch(`${base}/images/logo.png`);
+        expect(res.status).toBe(200);
+        expect(res.headers.get('cache-control')).toBe('public, max-age=2592000');
+    });
+
+    it('serves a slugified WebP product image', async () => {
+        // Guards the rename: this path only exists after the asset optimisation.
+        const res = await fetch(`${base}/images/chaat-and-fast-food-counter/pani-puri-counter.webp`);
+        expect(res.status).toBe(200);
+        expect(res.headers.get('content-type')).toBe('image/webp');
+    });
+});

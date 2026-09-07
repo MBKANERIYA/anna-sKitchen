@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 
 const partnerLogos = [
-    { name: 'Cellfrost', logo: '/Partners/Cellfrost.png', bg: '#000' },
-    { name: 'Rational', logo: '/Partners/Rational.svg' },
-    { name: 'Vitamix', logo: '/Partners/vitamix.jpg' },
-    { name: 'Rockwell', logo: '/Partners/Rockwell.png' },
-    { name: 'TRUFROST', logo: '/Partners/TRUFROST.png' },
-    { name: 'Western', logo: '/Partners/Western.png' },
-    { name: 'EzyCoock', logo: '/Partners/EzyCoock.png' },
-    { name: 'Butler', logo: '/Partners/Butler.png' },
+    { name: 'Cellfrost', logo: '/partners/cellfrost.webp', bg: '#000' },
+    { name: 'Rational', logo: '/partners/rational.svg' },
+    { name: 'Vitamix', logo: '/partners/vitamix.webp' },
+    { name: 'Rockwell', logo: '/partners/rockwell.webp' },
+    { name: 'TRUFROST', logo: '/partners/trufrost.webp' },
+    { name: 'Western', logo: '/partners/western.webp' },
+    { name: 'EzyCoock', logo: '/partners/ezycoock.webp' },
+    { name: 'Butler', logo: '/partners/butler.webp' },
 ];
 
 const PartnerSlider = () => {

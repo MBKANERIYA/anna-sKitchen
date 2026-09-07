@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# Fallback ONLY for deploying the front-end as a static site to public_html
+# (i.e. if Node.js apps are not available on the plan). Rename this file to
+# ".htaccess" and upload it alongside the contents of dist/.
+#
+# Do NOT add this when running as a Hostinger Node.js app — the panel generates
+# its own .htaccess to proxy requests to the Node process, and this would fight it.
+#
+# In this mode /api/* does not exist, so the site serves its bundled static
+# catalogue and the admin dashboard cannot save changes.
+# ---------------------------------------------------------------------------
+
+# ---- SPA routing: serve index.html for any path that is not a real file ----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Never rewrite requests for files or directories that actually exist.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# ---- Compression ----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ---- Caching ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp                "access plus 30 days"
+  ExpiresByType image/png                 "access plus 30 days"
+  ExpiresByType image/jpeg                "access plus 30 days"
+  ExpiresByType image/svg+xml             "access plus 30 days"
+  ExpiresByType application/pdf           "access plus 30 days"
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+</IfModule>
+
+# Vite fingerprints everything in /assets/, so it is safe to cache forever.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # index.html must always be revalidated or users get a stale app shell
+  # pointing at asset filenames that no longer exist.
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# ---- Correct MIME types (older Apache builds miss these) ----
+<IfModule mod_mime.c>
+  AddType image/webp  .webp
+  AddType image/avif  .avif
+</IfModule>

@@ -2,7 +2,7 @@ const defaultBlogsData = [
     {
         slug: 'finding-best-commercial-kitchen-equipment',
         title: 'Navigating the Market: Finding the Best Commercial Kitchen Equipment Near Me',
-        image: '/blog/download.jpg',
+        image: '/blog/download.webp',
         date: 'Jan 15, 2025',
         category: 'Guide',
         author: 'Anna Kitchen Team',
@@ -28,7 +28,7 @@ const defaultBlogsData = [
     {
         slug: 'commercial-cooking-equipment-essentials',
         title: 'The Heart of Your Kitchen: Commercial Cooking Equipment Essentials',
-        image: '/blog/images (4).jpg',
+        image: '/blog/images-4.webp',
         date: 'Feb 02, 2025',
         category: 'Essentials',
         author: 'Anna Kitchen Team',
@@ -54,7 +54,7 @@ const defaultBlogsData = [
     {
         slug: 'commercial-dishwasher-buying-guide-2025',
         title: 'Complete Helpful & Buying Guide 2025: Commercial Dishwasher',
-        image: '/blog/istockphoto-471711877-612x612.jpg',
+        image: '/blog/istockphoto-471711877-612x612.webp',
         date: 'Mar 10, 2025',
         category: 'Buying Guide',
         author: 'Anna Kitchen Team',
@@ -80,7 +80,7 @@ const defaultBlogsData = [
     {
         slug: 'top-commercial-kitchen-solutions-lucknow',
         title: 'Transforming Culinary Spaces: Top Commercial Kitchen Solutions in Surat',
-        image: '/blog/professional-stainless-steel-kitchen-design-photo-was-made-restouraunt_613910-12332.avif',
+        image: '/blog/professional-stainless-steel-kitchen-design-photo-was-made-restouraunt-613910-12332.webp',
         date: 'Apr 05, 2025',
         category: 'Solutions',
         author: 'Anna Kitchen Team',

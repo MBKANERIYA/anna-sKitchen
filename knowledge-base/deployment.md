@@ -1,0 +1,111 @@
+# Deployment — Hostinger
+
+## What this subsystem does
+The site runs as a **single Node.js process** on Hostinger. That one process serves both
+the JSON API under `/api/*` and the compiled React SPA from `dist/`. One app, one domain,
+no CORS, no separate front-end host.
+
+## How it is structured
+```
+Browser
+   |
+   v
+Hostinger (TLS + auto-generated .htaccess proxy)
+   |
+   v
+node server.js            <- Entry file; owns listen(process.env.PORT)
+   |
+   +-- server/index.js     <- Builds the Express app, exports it
+         |
+         +-- /api/products, /api/blogs   -> Mongoose -> MongoDB Atlas
+         +-- /api/health                 -> liveness + db state
+         +-- /api/*  (unmatched)         -> JSON 404
+         +-- express.static('dist')      -> hashed assets, immutable cache
+         +-- GET *                       -> dist/index.html (SPA fallback)
+```
+
+`server/index.js` never calls `listen()`. That belongs to `server.js` alone, so the module
+can be imported by tests (and by the legacy Vercel shim) without binding a port.
+
+## Plan requirement — verify this first
+Hostinger's own documentation lists in-panel Node.js apps as available on **Business Web
+Hosting** and **Cloud Startup / Professional / Enterprise** plans. Premium is not listed.
+
+> ⚠️ Needs verification: this project was set up for a plan the owner described as
+> "Premium Node.js hosting". If hPanel offers no Node.js app option, either upgrade to
+> Business, or use the static fallback below.
+
+If there is no Node.js option, check hPanel -> Websites -> Add Website -> **Deploy Web App**.
+
+## Deploying (Node.js app)
+1. **Build locally** — `npm run build`. Confirm `dist/` exists.
+2. **Get the code to Hostinger** by one of:
+   - GitHub repo (rebuilds on push) — recommended,
+   - a `.zip` upload,
+   - the Hostinger VS Code connector.
+   Do not ship `node_modules/`, `dist/`, or `public-original/`.
+3. **Configure the app** in hPanel:
+   | Setting          | Value            |
+   |------------------|------------------|
+   | Node version     | 20 or 22         |
+   | Build command    | `npm run build`  |
+   | Entry file       | `server.js`      |
+   | Output directory | `dist`           |
+   If the framework preset is detected as a static React/Vite app, change it — this is a
+   **server** app, otherwise `/api/*` will not exist.
+4. **Set environment variables** (hPanel -> app -> Environment variables). See `.env.example`:
+   `MONGODB_URI`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`.
+   Do **not** set `PORT` — Hostinger injects it.
+5. **Allow-list the server IP in MongoDB Atlas** (Network Access). This is the most common
+   first-deploy failure. Symptom below.
+6. **Verify**: `https://<domain>/api/health` should return
+   `{"status":"ok", ..., "db":"connected"}`. `db:"disconnected"` means step 5 is incomplete.
+
+## Conventions and rules
+- Never add a second `listen()`.
+- Never hardcode a port.
+- `/api/*` routes are registered before the SPA fallback, and an explicit JSON 404 sits
+  between them. Adding a route after the `GET *` handler makes it unreachable.
+- Cache policy is set in `server/index.js`:
+  `dist/assets/*` (Vite-fingerprinted) -> `max-age=31536000, immutable`;
+  everything copied from `public/` -> `max-age=2592000`;
+  `index.html` -> `no-cache`, so a deploy is picked up immediately.
+- `compression()` runs in-process; do not also enable compression in `.htaccess`.
+
+## Known gotchas
+- **`db:"disconnected"` on a fresh deploy** — Atlas has not allow-listed the Hostinger IP.
+  The site still works: the front-end falls back to its bundled catalogue in
+  `src/data/`, so pages render but the admin dashboard cannot save anything.
+- **A DB outage costs ~5 s, not 10 s.** `mongoose.set('bufferTimeoutMS', 5000)` and a
+  client-side `AbortController` both cap the wait. This was 10+ s before 2026-09-07 and
+  showed a spinner the whole time.
+- **`GET *` swallows typos.** Without the explicit `/api` 404, `/api/porducts` would return
+  `index.html` with a 200 and the front-end would fail to parse it. There is a regression
+  test for this.
+- **Case sensitivity.** Hostinger is Linux. Anything referencing `Logo.webp` rather than
+  `logo.webp` works on Windows and 404s in production. All assets are lowercase by design.
+- The legacy `vercel.json` and `api/` shim are still present and harmless. If Hostinger's
+  autodetect misreads the project, `vercel.json` is the first thing to remove.
+
+## Static-only fallback (no Node.js on the plan)
+Upload the **contents of `dist/`** to `public_html`, then rename
+`deploy/htaccess-static-fallback` to `.htaccess` beside it. That file supplies SPA routing,
+compression, and cache headers.
+
+In this mode there is no `/api`, so the site serves its bundled catalogue and **the admin
+dashboard cannot save**. Do not add this `.htaccess` when running as a Node.js app — it
+fights the one Hostinger generates.
+
+## How it is tested
+`server/server.test.js` boots the real Express app on an ephemeral port and asserts the
+hosting contract: health check without a DB, JSON 404 for unknown `/api` routes, SPA shell
+at `/` and at a deep route, and the three cache-header classes. `npm test` runs
+`vite build` first (via `pretest`) so those assertions run against a real `dist/`.
+
+Not covered: the live Hostinger environment itself, MongoDB connectivity, and Cloudinary
+uploads. Verify those with `/api/health` after deploying.
+
+## Related
+- [architecture.md](architecture.md) — how the pieces fit together
+- [assets.md](assets.md) — why the asset filenames changed
+- [known-issues.md](known-issues.md) — read before making the site public

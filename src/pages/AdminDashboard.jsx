@@ -615,7 +615,7 @@ const AdminDashboard = () => {
                                         <div className="h-48 overflow-hidden relative">
                                             <div className="absolute inset-0 bg-secondary/20 group-hover:bg-transparent transition-colors z-10 duration-500 pointer-events-none"></div>
                                             <img
-                                                src={blogImagePreview || "/blog/download.jpg"}
+                                                src={blogImagePreview || "/blog/download.webp"}
                                                 alt={blogTitle || "Blog Subject"}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                 onError={(e) => { e.target.src = '/images/logo.png' }}
