@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaPhone, FaArrowLeft, FaArrowRight, FaWhatsapp } from 'react-icons/fa';
 import { fetchProducts } from '../api/products';
+import SEO from '../components/SEO';
 
 const CollectionPage = () => {
     const { category } = useParams();
@@ -51,6 +52,7 @@ const CollectionPage = () => {
 
     return (
         <div className="min-h-screen bg-secondary">
+            <SEO title={data ? data.title : "Collection"} description={data?.description || "Explore our collection"} />
             {/* Hero Section */}
             <div className="relative overflow-hidden">
                 {/* Background effects */}

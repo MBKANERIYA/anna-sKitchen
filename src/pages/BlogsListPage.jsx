@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaCalendar, FaArrowRight } from 'react-icons/fa';
 import { fetchBlogs } from '../api/blogs';
 import CTA from '../components/CTA';
+import SEO from '../components/SEO';
 
 const BlogsListPage = () => {
     const [blogs, setBlogs] = useState([]);
@@ -35,6 +36,7 @@ const BlogsListPage = () => {
 
     return (
         <div className="min-h-screen bg-gold-light">
+            <SEO title="Our Blogs" description="Insights, trends, and guides for commercial kitchen equipments." />
             {/* Hero Banner */}
             <div className="relative h-[40vh] min-h-[300px] overflow-hidden">
                 <div

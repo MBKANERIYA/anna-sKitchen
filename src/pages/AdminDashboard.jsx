@@ -4,6 +4,7 @@ import { fetchProducts, addProduct, deleteProduct } from '../api/products';
 import { fetchBlogs, addBlog, deleteBlog } from '../api/blogs';
 import { logout } from '../api/auth';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import SEO from '../components/SEO';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('manage-products');
@@ -209,6 +210,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="min-h-screen bg-secondary flex">
+            <SEO title="Admin Dashboard" />
             {/* Sidebar */}
             <aside className="w-64 bg-secondary/40 backdrop-blur-md border-r border-white/5 text-white hidden md:block shadow-2xl relative z-10">
                 <div className="p-6 border-b border-white/5">
@@ -338,7 +340,7 @@ const AdminDashboard = () => {
                                                 <p className="text-gray-500 text-sm italic py-4">No products found in this category.</p>
                                             ) : (
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                                    {filteredProducts.map((product, index) => {
+                                                    {filteredProducts.map((product) => {
                                                         const originalIndex = categoryData.products.findIndex(p => p.name === product.name);
                                                         return (
                                                             <div key={originalIndex} className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-3 flex flex-col group hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.4)] hover:border-accent/40 transition-all duration-500 relative">

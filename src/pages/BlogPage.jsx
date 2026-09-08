@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaCalendar, FaUser, FaArrowLeft } from 'react-icons/fa';
 import { fetchBlogs } from '../api/blogs';
+import SEO from '../components/SEO';
 
 const BlogPage = () => {
     const { slug } = useParams();
@@ -56,6 +57,7 @@ const BlogPage = () => {
 
     return (
         <div className="min-h-screen bg-gold-light">
+            <SEO title={blog ? blog.title : "Blog"} description={blog?.content?.[0]?.text?.substring(0, 160)} />
             {/* Hero Banner */}
             <div className="relative h-[45vh] min-h-[300px] overflow-hidden">
                 <img

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaHome, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { fetchProducts } from '../api/products';
-
+import SEO from '../components/SEO';
 
 
 const ALLOWED_SLUGS = [
@@ -42,6 +42,7 @@ const Collections = () => {
 
     return (
         <div className="min-h-screen bg-secondary">
+            <SEO title="Collections" description="Browse our premium commercial kitchen equipment collections." />
             {/* Hero Banner */}
             <div className="relative py-24 md:py-32 overflow-hidden">
                 {/* Animated gradient background */}
@@ -98,7 +99,7 @@ const Collections = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {categories.map((cat, index) => (
+                        {categories.map((cat) => (
                             <Link
                                 key={cat.slug}
                                 to={`/collections/${cat.slug}`}

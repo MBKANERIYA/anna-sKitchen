@@ -14,10 +14,12 @@ import FAQ from '../components/FAQ';
 import CTA from '../components/CTA';
 import Footer from '../components/Footer';
 import PartnerSlider from '../components/PartnerSlider';
+import SEO from '../components/SEO';
 
 const Home = () => {
     return (
         <>
+            <SEO title="Home" description="Welcome to Anna's Kitchen. We provide premium catering and refrigeration equipment." />
             <Hero />
             <ClientSlider />
             <About />
